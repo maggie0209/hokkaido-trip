@@ -1,0 +1,3523 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#FFFCF6">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="北海道5日遊">
+  <link rel="manifest" href="manifest.json">
+  <title>北海道星享事成 5日雪國之旅 | 隨身行程手冊</title>
+  
+  <!-- Google Fonts: Huninn & Zen Maru Gothic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/justfont/huninn-font@1.1/font/jf-openhuninn.css">
+  
+  <style>
+    /* CSS Reset & Variables */
+    :root {
+      --bg-washi: #FFFCF6;
+      --border-ink: #3E3A39;
+      --coral-pink: #F2A497;
+      --yamabuki-yellow: #F6D27A;
+      --mizuiro-blue: #A8D3E6;
+      --wakatake-green: #B9DAA5;
+      
+      --coral-soft: #FDF2F0;
+      --yellow-soft: #FEF9E7;
+      --blue-soft: #F0F7FB;
+      --green-soft: #F2F9EE;
+      --white: #FFFFFF;
+      --gray-light: #F4EFEB;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-washi);
+      color: var(--border-ink);
+      font-family: 'jf-openhuninn', 'Huninn', 'Zen Maru Gothic', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+      line-height: 1.6;
+      font-size: 15px;
+      overflow-x: hidden;
+      padding-bottom: 70px;
+    }
+
+    /* Picture Book Box & Outline Utilities (No gradients!) */
+    .ink-border {
+      border: 3px solid var(--border-ink);
+    }
+
+    .ink-box {
+      border: 3px solid var(--border-ink);
+      border-radius: 24px;
+      background-color: var(--white);
+      box-shadow: 4px 4px 0px var(--border-ink);
+      position: relative;
+    }
+
+    .ink-box-sm {
+      border: 3px solid var(--border-ink);
+      border-radius: 18px;
+      box-shadow: 3px 3px 0px var(--border-ink);
+    }
+
+    .ink-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-weight: 700;
+      border: 3px solid var(--border-ink);
+      border-radius: 9999px;
+      padding: 8px 18px;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 3px 3px 0px var(--border-ink);
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      user-select: none;
+      font-family: inherit;
+    }
+
+    .ink-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px var(--border-ink);
+    }
+
+    /* Badges & Tags */
+    .badge-must {
+      background-color: var(--coral-pink);
+      color: var(--border-ink);
+      border: 2px solid var(--border-ink);
+      font-size: 12px;
+      font-weight: 900;
+      padding: 3px 10px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 2px 2px 0px var(--border-ink);
+    }
+
+    .badge-transport {
+      border: 2px solid var(--border-ink);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 1px 1px 0px var(--border-ink);
+    }
+
+    /* Fixed Top Navbar */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--bg-washi);
+      border-bottom: 3px solid var(--border-ink);
+      padding: 10px 16px;
+    }
+
+    .nav-container {
+      max-width: 820px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .nav-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 900;
+      font-size: 17px;
+      color: var(--border-ink);
+      text-decoration: none;
+    }
+
+    .nav-brand-tag {
+      background-color: var(--yamabuki-yellow);
+      border: 2px solid var(--border-ink);
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 11px;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .nav-scroll-pills {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 2px 2px 6px 2px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .nav-scroll-pills::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-pill {
+      white-space: nowrap;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border: 2px solid var(--border-ink);
+      border-radius: 9999px;
+      background-color: var(--white);
+      color: var(--border-ink);
+      text-decoration: none;
+      box-shadow: 2px 2px 0px var(--border-ink);
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-pill.active, .nav-pill:hover {
+      background-color: var(--yamabuki-yellow);
+      transform: translateY(-1px);
+    }
+
+    /* Container */
+    .app-wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 16px 16px 40px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* Section Headers */
+    .sec-title-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      position: relative;
+    }
+
+    .sec-title {
+      font-size: 20px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--border-ink);
+    }
+
+    .sec-subtitle {
+      font-size: 13px;
+      color: #6B6462;
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    /* Animations: gentle movements */
+    @keyframes gentleFloat {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-6px);
+      }
+    }
+
+    @keyframes gentleSway {
+      0%, 100% {
+        transform: rotate(0deg);
+      }
+      50% {
+        transform: rotate(2deg);
+      }
+    }
+
+    @keyframes gentlePulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.03);
+      }
+    }
+
+    @keyframes bounceTab {
+      0% {
+        transform: scale(0.92) translateY(3px);
+      }
+      50% {
+        transform: scale(1.04) translateY(-2px);
+      }
+      100% {
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    @keyframes bounceInPop {
+      0% {
+        opacity: 0;
+        transform: scale(0.95) translateY(12px);
+      }
+      60% {
+        opacity: 1;
+        transform: scale(1.02) translateY(-2px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .anim-float {
+      animation: gentleFloat 3.5s ease-in-out infinite;
+    }
+
+    .anim-sway {
+      animation: gentleSway 4s ease-in-out infinite;
+      transform-origin: bottom center;
+    }
+
+    .anim-pulse {
+      animation: gentlePulse 3s ease-in-out infinite;
+    }
+
+    .anim-bounce-in {
+      animation: bounceInPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    /* Reduced Motion Support */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    body.reduced-motion *, 
+    body.reduced-motion ::before, 
+    body.reduced-motion ::after {
+      animation: none !important;
+      transition: none !important;
+    }
+
+    /* Hero Section */
+    .hero-card {
+      background-color: var(--white);
+      padding: 24px 20px;
+      overflow: hidden;
+      border: 3px solid var(--border-ink);
+      border-radius: 28px;
+      box-shadow: 5px 5px 0px var(--border-ink);
+    }
+
+    .hero-illustration-box {
+      width: 100%;
+      background-color: var(--blue-soft);
+      border: 3px solid var(--border-ink);
+      border-radius: 22px;
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-titles {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .hero-badge-tag {
+      background-color: var(--yamabuki-yellow);
+      border: 2px solid var(--border-ink);
+      border-radius: 999px;
+      padding: 4px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      display: inline-block;
+      margin-bottom: 8px;
+      box-shadow: 2px 2px 0px var(--border-ink);
+    }
+
+    .hero-main-title {
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--border-ink);
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    .hero-sub-title {
+      font-size: 14px;
+      color: #55504E;
+      line-height: 1.5;
+    }
+
+    /* Meta Info Bar */
+    .hero-info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    @media (min-width: 600px) {
+      .hero-info-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .info-pill {
+      background-color: var(--gray-light);
+      border: 2px solid var(--border-ink);
+      border-radius: 14px;
+      padding: 8px 10px;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .info-pill strong {
+      display: block;
+      color: var(--border-ink);
+      font-size: 13px;
+    }
+
+    /* Countdown Widget */
+    .countdown-wrap {
+      background-color: var(--yellow-soft);
+      border: 3px solid var(--border-ink);
+      border-radius: 20px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 3px 3px 0px var(--border-ink);
+      margin-bottom: 20px;
+    }
+
+    .countdown-title {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .countdown-boxes {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .count-unit {
+      background-color: var(--white);
+      border: 3px solid var(--border-ink);
+      border-radius: 14px;
+      padding: 8px 12px;
+      min-width: 62px;
+      box-shadow: 2px 2px 0px var(--border-ink);
+    }
+
+    .count-num {
+      font-size: 24px;
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--border-ink);
+    }
+
+    .count-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #7A7270;
+    }
+
+    /* Tour Perks Grid */
+    .perks-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    @media (max-width: 480px) {
+      .perks-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .perk-card {
+      border: 2px solid var(--border-ink);
+      border-radius: 16px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 2px 2px 0px var(--border-ink);
+    }
+
+    .perk-card.pink { background-color: var(--coral-soft); }
+    .perk-card.yellow { background-color: var(--yellow-soft); }
+    .perk-card.blue { background-color: var(--blue-soft); }
+    .perk-card.green { background-color: var(--green-soft); }
+
+    .perk-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .perk-text h4 {
+      font-size: 13px;
+      font-weight: 900;
+      margin-bottom: 2px;
+    }
+
+    .perk-text p {
+      font-size: 11px;
+      color: #665F5D;
+    }
+
+    /* Flights Section */
+    .flight-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 640px) {
+      .flight-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .flight-card {
+      border: 3px solid var(--border-ink);
+      border-radius: 24px;
+      background-color: var(--white);
+      box-shadow: 4px 4px 0px var(--border-ink);
+      padding: 18px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .flight-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px dashed var(--border-ink);
+      padding-bottom: 10px;
+    }
+
+    .flight-type-tag {
+      padding: 4px 10px;
+      border: 2px solid var(--border-ink);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .flight-type-tag.outbound {
+      background-color: var(--mizuiro-blue);
+    }
+
+    .flight-type-tag.inbound {
+      background-color: var(--coral-pink);
+    }
+
+    .flight-route-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+    }
+
+    .airport-box {
+      text-align: center;
+      flex: 1;
+    }
+
+    .airport-code {
+      font-size: 24px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .airport-city {
+      font-size: 12px;
+      font-weight: 700;
+      color: #665F5D;
+      margin-top: 4px;
+    }
+
+    .airport-time {
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--border-ink);
+      background-color: var(--yellow-soft);
+      border: 2px solid var(--border-ink);
+      border-radius: 8px;
+      padding: 2px 6px;
+      margin-top: 6px;
+      display: inline-block;
+    }
+
+    .flight-plane-icon {
+      flex: 0 0 60px;
+      text-align: center;
+    }
+
+    .flight-details-box {
+      background-color: var(--gray-light);
+      border: 2px solid var(--border-ink);
+      border-radius: 14px;
+      padding: 10px;
+      font-size: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    /* Date Switcher Tabs */
+    .date-tabs-wrap {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .date-tabs-wrap::-webkit-scrollbar {
+      display: none;
+    }
+
+    .date-tab-btn {
+      flex: 1;
+      min-width: 120px;
+      background-color: var(--white);
+      border: 3px solid var(--border-ink);
+      border-radius: 18px;
+      padding: 10px 8px;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 3px 3px 0px var(--border-ink);
+      transition: transform 0.1s ease, background-color 0.1s ease;
+      font-family: inherit;
+    }
+
+    .date-tab-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px var(--border-ink);
+    }
+
+    .date-tab-btn.active {
+      background-color: var(--yamabuki-yellow);
+      box-shadow: 4px 4px 0px var(--border-ink);
+      transform: translateY(-2px);
+      animation: bounceTab 0.35s ease;
+    }
+
+    .date-tab-btn .tab-day {
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+    }
+
+    .date-tab-btn .tab-date {
+      font-size: 15px;
+      font-weight: 900;
+      margin: 2px 0;
+    }
+
+    .date-tab-btn .tab-summary {
+      font-size: 11px;
+      color: #555;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Day Itinerary Container */
+    .day-itinerary-pane {
+      display: none;
+    }
+
+    .day-itinerary-pane.active {
+      display: block;
+    }
+
+    .day-banner-box {
+      border: 3px solid var(--border-ink);
+      border-radius: 20px;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: 3px 3px 0px var(--border-ink);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .day-banner-box.d1 { background-color: var(--green-soft); }
+    .day-banner-box.d2 { background-color: var(--coral-soft); }
+    .day-banner-box.d3 { background-color: var(--blue-soft); }
+    .day-banner-box.d4 { background-color: var(--yellow-soft); }
+    .day-banner-box.d5 { background-color: var(--green-soft); }
+
+    .day-banner-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .day-banner-title {
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .day-meals-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 12px;
+      padding-top: 6px;
+      border-top: 2px dashed var(--border-ink);
+    }
+
+    .meal-chip {
+      background-color: var(--white);
+      border: 2px solid var(--border-ink);
+      border-radius: 8px;
+      padding: 3px 8px;
+      font-weight: 700;
+    }
+
+    /* Timeline Structure */
+    .timeline-container {
+      position: relative;
+      padding-left: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      left: 11px;
+      top: 15px;
+      bottom: 20px;
+      width: 4px;
+      background-color: var(--border-ink);
+      border-radius: 2px;
+    }
+
+    .timeline-item {
+      position: relative;
+    }
+
+    .timeline-node {
+      position: absolute;
+      left: -28px;
+      top: 18px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 3px solid var(--border-ink);
+      background-color: var(--yamabuki-yellow);
+      box-shadow: 2px 2px 0px var(--border-ink);
+      z-index: 2;
+    }
+
+    .timeline-card {
+      border: 3px solid var(--border-ink);
+      border-radius: 20px;
+      background-color: var(--white);
+      box-shadow: 3px 3px 0px var(--border-ink);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .timeline-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .time-badge {
+      background-color: var(--border-ink);
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 900;
+      padding: 2px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    .timeline-card-title {
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--border-ink);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .timeline-card-desc {
+      font-size: 13px;
+      color: #4B4644;
+      line-height: 1.6;
+    }
+
+    .timeline-tip-box {
+      background-color: var(--yellow-soft);
+      border: 2px solid var(--border-ink);
+      border-radius: 12px;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: var(--border-ink);
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .play-guide-box {
+      background-color: var(--green-soft);
+      border: 2px solid var(--border-ink);
+      border-radius: 14px;
+      padding: 10px 12px;
+      font-size: 12px;
+      color: var(--border-ink);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .play-guide-title {
+      font-weight: 900;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .timeline-img-slot {
+      border: 2px solid var(--border-ink);
+      border-radius: 14px;
+      overflow: hidden;
+      background-color: var(--blue-soft);
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Photo Guide Section */
+    .photo-filter-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+      scrollbar-width: none;
+    }
+
+    .photo-filter-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .photo-filter-btn {
+      border: 2px solid var(--border-ink);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      background-color: var(--white);
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+      box-shadow: 2px 2px 0px var(--border-ink);
+    }
+
+    .photo-filter-btn.active {
+      background-color: var(--coral-pink);
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 620px) {
+      .photo-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .photo-card {
+      border: 3px solid var(--border-ink);
+      border-radius: 22px;
+      background-color: var(--white);
+      box-shadow: 4px 4px 0px var(--border-ink);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .photo-svg-frame {
+      border: 2px solid var(--border-ink);
+      border-radius: 16px;
+      height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .photo-tag-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .photo-spot-pill {
+      background-color: var(--yamabuki-yellow);
+      border: 2px solid var(--border-ink);
+      border-radius: 8px;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .photo-pose-steps {
+      background-color: var(--gray-light);
+      border: 2px solid var(--border-ink);
+      border-radius: 12px;
+      padding: 8px 10px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    /* Hotels Section */
+    .hotel-card {
+      border: 3px solid var(--border-ink);
+      border-radius: 24px;
+      background-color: var(--white);
+      box-shadow: 4px 4px 0px var(--border-ink);
+      padding: 20px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .hotel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .hotel-tag {
+      background-color: var(--wakatake-green);
+      border: 2px solid var(--border-ink);
+      font-size: 11px;
+      font-weight: 900;
+      padding: 3px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    .hotel-name {
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--border-ink);
+    }
+
+    .hotel-sub {
+      font-size: 12px;
+      color: #665F5D;
+    }
+
+    .hotel-highlight-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    @media (min-width: 500px) {
+      .hotel-highlight-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .hotel-feat {
+      background-color: var(--gray-light);
+      border: 2px solid var(--border-ink);
+      border-radius: 12px;
+      padding: 8px 10px;
+      font-size: 12px;
+    }
+
+    .hotel-feat strong {
+      display: block;
+      color: var(--border-ink);
+      margin-bottom: 2px;
+    }
+
+    /* Checklist Section */
+    .checklist-wrap {
+      border: 3px solid var(--border-ink);
+      border-radius: 24px;
+      background-color: var(--white);
+      box-shadow: 4px 4px 0px var(--border-ink);
+      padding: 20px;
+    }
+
+    .progress-bar-container {
+      background-color: var(--gray-light);
+      border: 2px solid var(--border-ink);
+      border-radius: 999px;
+      height: 18px;
+      overflow: hidden;
+      margin: 12px 0 16px 0;
+      position: relative;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background-color: var(--wakatake-green);
+      border-right: 2px solid var(--border-ink);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .checklist-filter-pills {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      scrollbar-width: none;
+    }
+
+    .filter-btn {
+      border: 2px solid var(--border-ink);
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      background-color: var(--white);
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+
+    .filter-btn.active {
+      background-color: var(--yamabuki-yellow);
+      box-shadow: 2px 2px 0px var(--border-ink);
+    }
+
+    .checklist-items {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 480px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .checklist-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border: 2px solid var(--border-ink);
+      border-radius: 14px;
+      background-color: var(--white);
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+      user-select: none;
+    }
+
+    .checklist-row:hover {
+      background-color: var(--yellow-soft);
+    }
+
+    .checklist-row.checked {
+      background-color: var(--green-soft);
+      text-decoration: line-through;
+      color: #777;
+    }
+
+    .checkbox-box {
+      width: 22px;
+      height: 22px;
+      border: 2px solid var(--border-ink);
+      border-radius: 6px;
+      background-color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-weight: 900;
+      font-size: 14px;
+    }
+
+    .checklist-row.checked .checkbox-box {
+      background-color: var(--wakatake-green);
+      color: var(--border-ink);
+    }
+
+    .add-task-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .task-input {
+      flex: 1;
+      border: 2px solid var(--border-ink);
+      border-radius: 12px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-family: inherit;
+      background-color: var(--white);
+      outline: none;
+    }
+
+    .task-input:focus {
+      border-color: #000;
+      background-color: var(--yellow-soft);
+    }
+
+    /* Utilities Section */
+    .util-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 640px) {
+      .util-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .util-card {
+      border: 3px solid var(--border-ink);
+      border-radius: 20px;
+      background-color: var(--white);
+      box-shadow: 3px 3px 0px var(--border-ink);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .calc-input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .calc-input {
+      width: 100%;
+      border: 2px solid var(--border-ink);
+      border-radius: 12px;
+      padding: 8px 12px;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: inherit;
+      background-color: var(--yellow-soft);
+      outline: none;
+    }
+
+    .calc-quick-pills {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .calc-pill {
+      border: 2px solid var(--border-ink);
+      border-radius: 8px;
+      padding: 3px 8px;
+      font-size: 11px;
+      font-weight: 700;
+      background-color: var(--white);
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .calc-pill:hover {
+      background-color: var(--yamabuki-yellow);
+    }
+
+    .phrase-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 12px;
+    }
+
+    .phrase-item {
+      background-color: var(--gray-light);
+      border: 2px solid var(--border-ink);
+      border-radius: 10px;
+      padding: 6px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Expense & Tax-Free Tracker */
+    .expense-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 180px;
+      overflow-y: auto;
+    }
+
+    .expense-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--gray-light);
+      border: 2px solid var(--border-ink);
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+
+    .expense-del-btn {
+      background-color: var(--coral-pink);
+      border: 1.5px solid var(--border-ink);
+      border-radius: 6px;
+      padding: 1px 6px;
+      font-size: 11px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    /* Layering Guide Tabs */
+    .layer-scene-tabs {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .layer-scene-btn {
+      flex: 1;
+      min-width: 90px;
+      border: 2px solid var(--border-ink);
+      border-radius: 10px;
+      padding: 6px 8px;
+      font-size: 11px;
+      font-weight: 900;
+      background-color: var(--white);
+      cursor: pointer;
+      font-family: inherit;
+      text-align: center;
+    }
+
+    .layer-scene-btn.active {
+      background-color: var(--mizuiro-blue);
+      box-shadow: 2px 2px 0px var(--border-ink);
+    }
+
+    /* Souvenir Grid */
+    .souvenir-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    @media (min-width: 540px) {
+      .souvenir-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .souvenir-item {
+      border: 2px solid var(--border-ink);
+      border-radius: 14px;
+      background-color: var(--yellow-soft);
+      padding: 10px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Footer */
+    .site-footer {
+      text-align: center;
+      padding: 30px 16px 10px 16px;
+      font-size: 12px;
+      color: #6E6866;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Sticky Navigation -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-header-row">
+        <a href="#hero" class="nav-brand">
+          <!-- Mini Bear SVG Icon -->
+          <svg width="24" height="24" viewBox="0 0 40 40" fill="none" style="vertical-align: middle;">
+            <circle cx="20" cy="22" r="14" fill="#F6D27A" stroke="#3E3A39" stroke-width="3"/>
+            <circle cx="10" cy="11" r="5" fill="#F6D27A" stroke="#3E3A39" stroke-width="3"/>
+            <circle cx="30" cy="11" r="5" fill="#F6D27A" stroke="#3E3A39" stroke-width="3"/>
+            <circle cx="15" cy="20" r="2" fill="#3E3A39"/>
+            <circle cx="25" cy="20" r="2" fill="#3E3A39"/>
+            <ellipse cx="20" cy="25" rx="4" ry="3" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2"/>
+            <circle cx="20" cy="24" r="1.5" fill="#3E3A39"/>
+          </svg>
+          <span>北海道星享事成 5日</span>
+          <span class="nav-brand-tag">離線手冊</span>
+        </a>
+
+        <div class="nav-actions">
+          <!-- Motion Toggle Button -->
+          <button id="motionToggleBtn" class="ink-btn" style="padding: 4px 10px; font-size: 12px; background-color: var(--white);" title="切換動態效果">
+            <span id="motionIcon">✨</span> <span id="motionText">動態</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Scrollable Navigation Pills -->
+      <nav class="nav-scroll-pills">
+        <a href="#hero" class="nav-pill active">🏠 概覽首頁</a>
+        <a href="#flights" class="nav-pill">✈️ 航班資訊</a>
+        <a href="#itinerary" class="nav-pill">🗓️ 每日行程</a>
+        <a href="#photo-guide" class="nav-pill">📸 拍照姿勢</a>
+        <a href="#hotels" class="nav-pill">🏨 住宿精選</a>
+        <a href="#checklist" class="nav-pill">✅ 待辦行李</a>
+        <a href="#utilities" class="nav-pill">🧰 實用工具</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="app-wrap">
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section id="hero" class="hero-card">
+      
+      <!-- Big Japanese Picture Book Illustration (Clean Flat Colors & 3px Ink Outlines) -->
+      <div class="hero-illustration-box">
+        <svg viewBox="0 0 760 340" width="100%" height="auto" style="max-height: 290px; overflow: visible;">
+          <!-- Sky and Sun -->
+          <circle cx="680" cy="70" r="38" fill="#F6D27A" stroke="#3E3A39" stroke-width="3" class="anim-pulse"/>
+          
+          <!-- Drifting Clouds -->
+          <g class="anim-float">
+            <!-- Cloud 1 -->
+            <path d="M 80 80 Q 90 60 115 65 Q 135 50 160 65 Q 185 60 195 80 Q 205 100 185 105 L 90 105 Q 70 100 80 80 Z" fill="#FFFFFF" stroke="#3E3A39" stroke-width="3"/>
+            <!-- Cloud 2 -->
+            <path d="M 520 95 Q 535 75 560 80 Q 580 65 605 80 Q 625 75 635 95 Q 645 115 625 120 L 530 120 Q 510 115 520 95 Z" fill="#FFFFFF" stroke="#3E3A39" stroke-width="3"/>
+          </g>
+
+          <!-- Starlux Airplane Flying -->
+          <g transform="translate(240, 45)" class="anim-float">
+            <!-- Trail line -->
+            <path d="M -90 20 L -10 20" stroke="#3E3A39" stroke-width="3" stroke-dasharray="6,6"/>
+            <!-- Fuselage -->
+            <path d="M 0 15 Q 40 5 90 15 Q 105 18 100 24 Q 90 28 60 28 L -5 28 L -15 10 L 0 15 Z" fill="#FFFFFF" stroke="#3E3A39" stroke-width="3"/>
+            <!-- Wing -->
+            <polygon points="35,16 55,-6 68,-6 50,16" fill="#F6D27A" stroke="#3E3A39" stroke-width="3"/>
+            <!-- Tail Wing -->
+            <polygon points="-8,16 -20,-4 -10,-4 3,16" fill="#F2A497" stroke="#3E3A39" stroke-width="3"/>
+            <!-- Jet Engine -->
+            <rect x="36" y="27" width="18" height="8" rx="4" fill="#A8D3E6" stroke="#3E3A39" stroke-width="3"/>
+            <!-- Windows -->
+            <circle cx="30" cy="20" r="2.5" fill="#3E3A39"/>
+            <circle cx="45" cy="20" r="2.5" fill="#3E3A39"/>
+            <circle cx="60" cy="20" r="2.5" fill="#3E3A39"/>
+            <circle cx="75" cy="20" r="2.5" fill="#3E3A39"/>
+          </g>
+
+          <!-- Distant Snowy Hokkaido Mountains (Mount Yotei / Showa-Shinzan) -->
+          <g>
+            <!-- Background Mountain -->
+            <polygon points="120,280 290,120 460,280" fill="#A8D3E6" stroke="#3E3A39" stroke-width="3"/>
+            <polygon points="250,158 290,120 330,158 312,168 290,154 268,168" fill="#FFFFFF" stroke="#3E3A39" stroke-width="3"/>
+
+            <!-- Secondary Mountain Peak -->
+            <polygon points="380,280 500,150 620,280" fill="#B9DAA5" stroke="#3E3A39" stroke-width="3"/>
+            <polygon points="465,188 500,150 535,188 520,198 500,185 480,198" fill="#FFFFFF" stroke="#3E3A39" stroke-width="3"/>
+          </g>
+
+          <!-- Rolling Snowy Hills Base -->
+          <path d="M -10 270 Q 180 240 380 260 Q 580 275 770 250 L 770 340 L -10 340 Z" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3"/>
+
+          <!-- Pine Trees (Picture Book Style) -->
+          <g transform="translate(60, 200)">
+            <rect x="20" y="55" width="8" height="25" fill="#3E3A39"/>
+            <polygon points="24,5 42,30 6,30" fill="#B9DAA5" stroke="#3E3A39" stroke-width="3"/>
+            <polygon points="24,22 46,45 2,45" fill="#B9DAA5" stroke="#3E3A39" stroke-width="3"/>
+            <polygon points="24,38 50,65 -2,65" fill="#B9DAA5" stroke="#3E3A39" stroke-width="3"/>
+            <!-- Snow on pine -->
+            <path d="M 24 5 L 34 20 L 14 20 Z" fill="#FFFFFF"/>
+          </g>
+
+          <g transform="translate(640, 190)">
+            <rect x="20" y="60" width="8" height="25" fill="#3E3A39"/>
+            <polygon points="24,10 42,35 6,35" fill="#B9DAA5" stroke="#3E3A39" stroke-width="3"/>
+            <polygon points="24,28 46,50 2,50" fill="#B9DAA5" stroke="#3E3A39" stroke-width="3"/>
+            <polygon points="24,45 50,70 -2,70" fill="#B9DAA5" stroke="#3E3A39" stroke-width="3"/>
+          </g>
+
+          <!-- Cute Hokkaido Landmark: Cable Car Rope & Gondola -->
+          <line x1="260" y1="130" x2="480" y2="210" stroke="#3E3A39" stroke-width="3"/>
+          <g transform="translate(370, 168)" class="anim-sway">
+            <line x1="16" y1="0" x2="16" y2="15" stroke="#3E3A39" stroke-width="3"/>
+            <rect x="0" y="15" width="32" height="24" rx="6" fill="#F2A497" stroke="#3E3A39" stroke-width="3"/>
+            <rect x="5" y="20" width="10" height="9" rx="2" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2"/>
+            <rect x="17" y="20" width="10" height="9" rx="2" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2"/>
+          </g>
+
+          <!-- Cute Hokkaido Brown Bear with Coral Scarf & Apple (Picture Book Mascot) -->
+          <g transform="translate(250, 190)" class="anim-sway">
+            <!-- Bear Body -->
+            <ellipse cx="60" cy="85" rx="36" ry="40" fill="#F6D27A" stroke="#3E3A39" stroke-width="3"/>
+            <ellipse cx="60" cy="88" rx="20" ry="24" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2"/>
+            
+            <!-- Bear Left Ear -->
+            <circle cx="36" cy="36" r="12" fill="#F6D27A" stroke="#3E3A39" stroke-width="3"/>
+            <circle cx="36" cy="36" r="6" fill="#F2A497"/>
+            <!-- Bear Right Ear -->
+            <circle cx="84" cy="36" r="12" fill="#F6D27A" stroke="#3E3A39" stroke-width="3"/>
+            <circle cx="84" cy="36" r="6" fill="#F2A497"/>
+            
+            <!-- Bear Head -->
+            <circle cx="60" cy="52" r="28" fill="#F6D27A" stroke="#3E3A39" stroke-width="3"/>
+            
+            <!-- Snout -->
+            <ellipse cx="60" cy="58" rx="12" ry="9" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2"/>
+            <ellipse cx="60" cy="54" rx="4" ry="3" fill="#3E3A39"/>
+            <path d="M 60 57 L 60 62 M 56 61 Q 60 64 64 61" stroke="#3E3A39" stroke-width="2" fill="none"/>
+            
+            <!-- Cheeks -->
+            <circle cx="43" cy="58" r="4.5" fill="#F2A497"/>
+            <circle cx="77" cy="58" r="4.5" fill="#F2A497"/>
+            
+            <!-- Happy Eyes -->
+            <path d="M 46 48 Q 50 44 54 48" stroke="#3E3A39" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M 66 48 Q 70 44 74 48" stroke="#3E3A39" stroke-width="3" fill="none" stroke-linecap="round"/>
+            
+            <!-- Warm Coral Scarf -->
+            <path d="M 40 68 Q 60 76 80 68 Q 84 78 78 82 Q 60 88 42 82 Z" fill="#F2A497" stroke="#3E3A39" stroke-width="3"/>
+            <rect x="68" y="76" width="12" height="28" rx="4" fill="#F2A497" stroke="#3E3A39" stroke-width="3"/>
+
+            <!-- Waving Arm (Left) -->
+            <ellipse cx="25" cy="72" rx="9" ry="16" transform="rotate(35 25 72)" fill="#F6D27A" stroke="#3E3A39" stroke-width="3"/>
+            
+            <!-- Holding Apple Arm (Right) -->
+            <ellipse cx="90" cy="80" rx="9" ry="14" fill="#F6D27A" stroke="#3E3A39" stroke-width="3"/>
+            <!-- Apple -->
+            <circle cx="98" cy="82" r="8" fill="#F2A497" stroke="#3E3A39" stroke-width="2"/>
+            <path d="M 98 74 Q 102 70 100 68" stroke="#3E3A39" stroke-width="2" fill="none"/>
+            <ellipse cx="103" cy="71" rx="3" ry="1.5" fill="#B9DAA5" stroke="#3E3A39" stroke-width="1.5"/>
+          </g>
+
+          <!-- Cute Waddling Penguin Beside Bear -->
+          <g transform="translate(430, 220)" class="anim-sway">
+            <!-- Body -->
+            <ellipse cx="30" cy="50" rx="18" ry="24" fill="#3E3A39" stroke="#3E3A39" stroke-width="3"/>
+            <!-- Belly -->
+            <ellipse cx="30" cy="54" rx="11" ry="17" fill="#FFFFFF"/>
+            <!-- Flippers -->
+            <ellipse cx="10" cy="50" rx="4" ry="12" transform="rotate(20 10 50)" fill="#3E3A39"/>
+            <ellipse cx="50" cy="50" rx="4" ry="12" transform="rotate(-20 50 50)" fill="#3E3A39"/>
+            <!-- Beak -->
+            <polygon points="26,38 34,38 30,44" fill="#F6D27A" stroke="#3E3A39" stroke-width="2"/>
+            <!-- Eyes -->
+            <circle cx="24" cy="35" r="2.5" fill="#3E3A39"/>
+            <circle cx="36" cy="35" r="2.5" fill="#3E3A39"/>
+            <!-- Cheeks -->
+            <circle cx="21" cy="40" r="2.5" fill="#F2A497"/>
+            <circle cx="39" cy="40" r="2.5" fill="#F2A497"/>
+            <!-- Cute Earmuffs -->
+            <path d="M 14 34 Q 30 20 46 34" stroke="#F2A497" stroke-width="3" fill="none"/>
+            <circle cx="14" cy="34" r="5" fill="#F2A497" stroke="#3E3A39" stroke-width="2"/>
+            <circle cx="46" cy="34" r="5" fill="#F2A497" stroke="#3E3A39" stroke-width="2"/>
+            <!-- Feet -->
+            <ellipse cx="23" cy="74" rx="6" ry="3" fill="#F6D27A" stroke="#3E3A39" stroke-width="2"/>
+            <ellipse cx="37" cy="74" rx="6" ry="3" fill="#F6D27A" stroke="#3E3A39" stroke-width="2"/>
+          </g>
+
+          <!-- Cute Wooden Signpost -->
+          <g transform="translate(140, 220)">
+            <rect x="22" y="30" width="8" height="55" fill="#3E3A39"/>
+            <rect x="0" y="10" width="54" height="24" rx="6" fill="#F6D27A" stroke="#3E3A39" stroke-width="3"/>
+            <text x="27" y="27" font-size="11" font-weight="900" fill="#3E3A39" text-anchor="middle">北海道</text>
+          </g>
+
+          <!-- Snowflakes in Sky -->
+          <g fill="#A8D3E6" stroke="#3E3A39" stroke-width="1.5">
+            <circle cx="160" cy="50" r="4"/>
+            <circle cx="220" cy="110" r="3"/>
+            <circle cx="490" cy="65" r="4"/>
+            <circle cx="580" cy="140" r="3"/>
+            <circle cx="330" cy="90" r="3.5"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Title & Tour Details -->
+      <div class="hero-titles">
+        <span class="hero-badge-tag">❄️ 冬日雪國・星野特別企劃</span>
+        <h1 class="hero-main-title">【北海道星享事成】五日雪國假期</h1>
+        <p class="hero-sub-title">慕尼黑聖誕夜・北湯澤綠之風溫泉・星野渡假村連住・札幌萬怡酒店</p>
+      </div>
+
+      <!-- General Travel Metadata Pills (No personal data) -->
+      <div class="hero-info-grid">
+        <div class="info-pill">
+          <span>旅遊日期</span>
+          <strong>2026/12/06 - 12/10</strong>
+        </div>
+        <div class="info-pill">
+          <span>直飛航班</span>
+          <strong>星宇航空 JX850/851</strong>
+        </div>
+        <div class="info-pill">
+          <span>旅遊地區</span>
+          <strong>北海道（道央・道南）</strong>
+        </div>
+        <div class="info-pill">
+          <span>冬季參考氣溫</span>
+          <strong>-5°C ～ 3°C (雪季)</strong>
+        </div>
+      </div>
+
+      <!-- Live Countdown Widget -->
+      <div class="countdown-wrap">
+        <div class="countdown-title">
+          <span>⏳</span>
+          <span id="countdownStatus">距離 2026/12/06 桃園機場出發倒數：</span>
+        </div>
+        <div class="countdown-boxes">
+          <div class="count-unit">
+            <div id="countDays" class="count-num">--</div>
+            <div class="count-label">天 DAYS</div>
+          </div>
+          <div class="count-unit">
+            <div id="countHours" class="count-num">--</div>
+            <div class="count-label">時 HOURS</div>
+          </div>
+          <div class="count-unit">
+            <div id="countMins" class="count-num">--</div>
+            <div class="count-label">分 MINS</div>
+          </div>
+          <div class="count-unit">
+            <div id="countSecs" class="count-num">--</div>
+            <div class="count-label">秒 SECS</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tour Exclusive Gifts (參團好禮) -->
+      <div class="perks-grid">
+        <div class="perk-card pink">
+          <div class="perk-icon">🎟️</div>
+          <div class="perk-text">
+            <h4>飯店抵用券 ¥2,000 /人</h4>
+            <p>星野/住宿專屬商品折抵券</p>
+          </div>
+        </div>
+        <div class="perk-card yellow">
+          <div class="perk-icon">🍷</div>
+          <div class="perk-text">
+            <h4>聖誕市集代金 ¥2,000 /人</h4>
+            <p>慕尼黑聖誕夜美食自由享用</p>
+          </div>
+        </div>
+        <div class="perk-card blue">
+          <div class="perk-icon">📶</div>
+          <div class="perk-text">
+            <h4>日本高速上網 SIM 卡</h4>
+            <p>每日 2GB 高速4G（機場領取）</p>
+          </div>
+        </div>
+        <div class="perk-card green">
+          <div class="perk-icon">🥾</div>
+          <div class="perk-text">
+            <h4>雪地防滑鞋套每人一雙</h4>
+            <p>雪地漫步安心不打滑</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==================== FLIGHTS SECTION ==================== -->
+    <section id="flights">
+      <div class="sec-title-wrap">
+        <div>
+          <h2 class="sec-title">✈️ 航班搭乘資訊</h2>
+          <p class="sec-subtitle">星宇航空 STARLUX 直飛往返・享受精品航空尊榮禮遇</p>
+        </div>
+      </div>
+
+      <div class="flight-grid">
+        
+        <!-- Outbound Flight Card -->
+        <div class="flight-card">
+          <div class="flight-card-header">
+            <div>
+              <span class="flight-type-tag outbound">去程航班</span>
+              <strong style="margin-left: 6px; font-size: 15px;">2026/12/06 (日)</strong>
+            </div>
+            <strong style="font-size: 16px; color: var(--border-ink);">星宇 JX850</strong>
+          </div>
+
+          <div class="flight-route-row">
+            <div class="airport-box">
+              <div class="airport-code">TPE</div>
+              <div class="airport-city">台北 (桃園 T1)</div>
+              <div class="airport-time">09:20 出發</div>
+            </div>
+
+            <div class="flight-plane-icon">
+              <!-- Airplane Icon -->
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" class="anim-float">
+                <circle cx="20" cy="20" r="18" fill="#F0F7FB" stroke="#3E3A39" stroke-width="2"/>
+                <path d="M 10 20 L 30 20 M 24 13 L 30 20 L 24 27" stroke="#3E3A39" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span style="font-size: 11px; font-weight: 700; color: #7A7270; display: block; margin-top: 2px;">約 3h 45m</span>
+            </div>
+
+            <div class="airport-box">
+              <div class="airport-code">CTS</div>
+              <div class="airport-city">北海道 (新千歲)</div>
+              <div class="airport-time">14:05 抵達</div>
+            </div>
+          </div>
+
+          <div class="flight-details-box">
+            <div>📍 <strong>機場集合：</strong>起飛前 2.5 小時 (06:50) 於桃園機場團體櫃檯集合</div>
+            <div>🧳 <strong>免費行李：</strong>托運行李 1 件 23kg ｜ 手提隨身 1 件 7kg</div>
+            <div>🍱 <strong>機上餐飲：</strong>星宇精緻簡餐 ＋ 特別加贈美味魚板與礦泉水</div>
+          </div>
+        </div>
+
+        <!-- Inbound Flight Card -->
+        <div class="flight-card">
+          <div class="flight-card-header">
+            <div>
+              <span class="flight-type-tag inbound">回程航班</span>
+              <strong style="margin-left: 6px; font-size: 15px;">2026/12/10 (四)</strong>
+            </div>
+            <strong style="font-size: 16px; color: var(--border-ink);">星宇 JX851</strong>
+          </div>
+
+          <div class="flight-route-row">
+            <div class="airport-box">
+              <div class="airport-code">CTS</div>
+              <div class="airport-city">北海道 (新千歲)</div>
+              <div class="airport-time">15:20 出發</div>
+            </div>
+
+            <div class="flight-plane-icon">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" class="anim-float">
+                <circle cx="20" cy="20" r="18" fill="#FDF2F0" stroke="#3E3A39" stroke-width="2"/>
+                <path d="M 10 20 L 30 20 M 24 13 L 30 20 L 24 27" stroke="#3E3A39" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span style="font-size: 11px; font-weight: 700; color: #7A7270; display: block; margin-top: 2px;">約 4h 45m</span>
+            </div>
+
+            <div class="airport-box">
+              <div class="airport-code">TPE</div>
+              <div class="airport-city">台北 (桃園 T1)</div>
+              <div class="airport-time">19:05 抵達</div>
+            </div>
+          </div>
+
+          <div class="flight-details-box">
+            <div>📍 <strong>機場集合：</strong>約 13:00 前由專車送達新千歲機場辦理登機</div>
+            <div>🧳 <strong>免費行李：</strong>托運行李 1 件 23kg ｜ 手提隨身 1 件 7kg</div>
+            <div>🍱 <strong>機上餐飲：</strong>星宇航空特製機上簡餐</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Luggage & Customs Tips -->
+      <div class="ink-box" style="margin-top: 14px; padding: 14px 16px; background-color: var(--yellow-soft);">
+        <div style="font-size: 13px; font-weight: 900; margin-bottom: 4px;">💡 機場通關與行李提醒：</div>
+        <div style="font-size: 12px; color: #504B49; line-height: 1.5;">
+          • <strong>行動電源、鋰電池</strong>一律放置於隨身手提行李，嚴禁托運！<br>
+          • <strong>指甲剪、修眉刀、液體大於100ml</strong>必須放入托運行李箱。<br>
+          • 抵達日本前請先完成 <strong>Visit Japan Web</strong> 入境審查與海關電子申報。
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== DAILY ITINERARY SECTION ==================== -->
+    <section id="itinerary">
+      <div class="sec-title-wrap">
+        <div>
+          <h2 class="sec-title">🗓️ 每日行程與在地遊玩建議</h2>
+          <p class="sec-subtitle">上方切換日期，瀏覽各日時間軸、交通方式、必去亮點與私房玩法</p>
+        </div>
+      </div>
+
+      <!-- Date Switcher Tab Bar -->
+      <div class="date-tabs-wrap" id="dateTabsBar">
+        <button class="date-tab-btn active" data-target="day1">
+          <div class="tab-day">DAY 1</div>
+          <div class="tab-date">12/06 (日)</div>
+          <div class="tab-summary">啟程・北湯澤露天風呂</div>
+        </button>
+        <button class="date-tab-btn" data-target="day2">
+          <div class="tab-day">DAY 2</div>
+          <div class="tab-date">12/07 (一)</div>
+          <div class="tab-summary">昭和新山・慕尼黑聖誕</div>
+        </button>
+        <button class="date-tab-btn" data-target="day3">
+          <div class="tab-day">DAY 3</div>
+          <div class="tab-date">12/08 (二)</div>
+          <div class="tab-summary">企鵝遊行・星野夢幻森林</div>
+        </button>
+        <button class="date-tab-btn" data-target="day4">
+          <div class="tab-day">DAY 4</div>
+          <div class="tab-date">12/09 (三)</div>
+          <div class="tab-summary">霧冰纜車・水之教堂巡禮</div>
+        </button>
+        <button class="date-tab-btn" data-target="day5">
+          <div class="tab-day">DAY 5</div>
+          <div class="tab-date">12/10 (四)</div>
+          <div class="tab-summary">AEON採購・滿載返台</div>
+        </button>
+      </div>
+
+      <!-- DAY 1 PANE -->
+      <div id="day1" class="day-itinerary-pane active anim-bounce-in">
+        
+        <!-- Day Summary Banner -->
+        <div class="day-banner-box d1">
+          <div class="day-banner-header">
+            <div>
+              <span class="badge-transport" style="background-color: var(--wakatake-green);">DAY 1 溫泉療癒日</span>
+              <h3 class="day-banner-title" style="margin-top: 4px;">桃園機場 ➔ 新千歲機場 ➔ 北湯澤綠之風渡假村</h3>
+            </div>
+          </div>
+          <p style="font-size: 13px; color: #4F4A48;">
+            今日集合搭乘星宇航空飛抵北海道北方空港，專車前往日本最大 150 坪露天風呂北湯澤溫泉，沉浸森林芬多精與暖心名湯。
+          </p>
+          <div class="day-meals-bar">
+            <span class="meal-chip">🥣 早餐：溫暖的家</span>
+            <span class="meal-chip">🍱 午餐：機上簡餐＋加贈美味魚板與礦泉水</span>
+            <span class="meal-chip">🦀 晚餐：飯店內豪華和洋自助百匯晚餐</span>
+            <span class="meal-chip">🏨 住宿：北湯澤綠之風渡假村 (Midorinokaze Resort)</span>
+          </div>
+        </div>
+
+        <!-- Day 1 Timeline -->
+        <div class="timeline-container">
+          
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta-row">
+                <span class="time-badge">06:50</span>
+                <span class="badge-transport" style="background-color: var(--yamabuki-yellow);">✈️ 集合報到</span>
+              </div>
+              <h4 class="timeline-card-title">桃園國際機場第一航廈集合</h4>
+              <p class="timeline-card-desc">
+                抵達桃園機場 T1 團體集合櫃檯，由專業領隊協助辦理登機與大件行李托運手續，發放日本高速上網 SIM 卡及防滑鞋套。
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta-row">
+                <span class="time-badge">09:20 - 14:05</span>
+                <span class="badge-transport" style="background-color: var(--mizuiro-blue);">✈️ 星宇航空 JX850</span>
+              </div>
+              <h4 class="timeline-card-title">翱翔天際・直飛北海道北方空港</h4>
+              <p class="timeline-card-desc">
+                享受星宇航空優質機上服務與個人娛樂影音設備，享用機上美味簡餐與團員專屬加贈點心，抵達新千歲機場辦理出境手續。
+              </p>
+              <div class="play-guide-box">
+                <div class="play-guide-title">🎯 機上＆落地私房建議：</div>
+                <div>• 星宇航空機上必點招牌特調飲品（如湛藍宇宙或濃湯），下機前建議先在機上換好日本 SIM 卡，落地開機即可馬上連網！</div>
+                <div>• 走出新千歲機場上巴士前，可先在機場超商買一瓶北海道限定「いろはす ハスカップ（藍靛果風味水）」或熱玉米濃湯暖手。</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta-row">
+                <span class="time-badge">15:30</span>
+                <span class="badge-transport" style="background-color: var(--wakatake-green);">🚌 專屬遊覽車</span>
+              </div>
+              <h4 class="timeline-card-title">搭乘專車前往北湯澤溫泉區</h4>
+              <p class="timeline-card-desc">
+                搭乘舒適暖氣專車穿越銀白雪景，沿途欣賞北海道初冬的森林風光，前往壯瞥町北湯澤溫泉勝地。
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta-row">
+                <span class="time-badge">17:00</span>
+                <span class="badge-transport" style="background-color: var(--coral-pink);">🏨 飯店入住</span>
+                <span class="badge-must">★ 必去亮點</span>
+              </div>
+              <h4 class="timeline-card-title">入住【北湯澤綠之風渡假村】享日本最大150坪露天風呂</h4>
+              <p class="timeline-card-desc">
+                座落長流川畔綠林間，擁有佔地 150 坪日本最大的森林散策露天風呂，分為「山側 10 湯」與「川側 10 湯」，結合 20 種多元芳香草本精油，在大自然環抱中徹底釋放疲憊。
+              </p>
+
+              <!-- Onsen Landmark Illustration -->
+              <div class="timeline-img-slot">
+                <svg width="240" height="90" viewBox="0 0 240 90" fill="none">
+                  <!-- Steaming Tub -->
+                  <ellipse cx="120" cy="65" rx="50" ry="18" fill="#F6D27A" stroke="#3E3A39" stroke-width="3"/>
+                  <rect x="70" y="45" width="100" height="20" fill="#F6D27A" stroke="#3E3A39" stroke-width="3"/>
+                  <ellipse cx="120" cy="45" rx="50" ry="15" fill="#A8D3E6" stroke="#3E3A39" stroke-width="3"/>
+                  <!-- Yellow Duck -->
+                  <circle cx="100" cy="40" r="7" fill="#F6D27A" stroke="#3E3A39" stroke-width="1.5"/>
+                  <ellipse cx="106" cy="42" rx="3" ry="1.5" fill="#F2A497"/>
+                  <circle cx="98" cy="38" r="1" fill="#3E3A39"/>
+                  <!-- Steam Puffs -->
+                  <path d="M 115 32 Q 110 24 116 16" stroke="#3E3A39" stroke-width="2" stroke-linecap="round" class="anim-float"/>
+                  <path d="M 125 30 Q 130 20 123 12" stroke="#3E3A39" stroke-width="2" stroke-linecap="round" class="anim-float"/>
+                  <path d="M 135 34 Q 138 25 133 18" stroke="#3E3A39" stroke-width="2" stroke-linecap="round" class="anim-float"/>
+                </svg>
+              </div>
+
+              <div class="timeline-tip-box">
+                <span>♨️</span>
+                <div>
+                  <strong>泡湯時間小貼士：</strong>白天 11:00~15:00 與凌晨 02:00~03:30 為男女湯清掃互換時間，建議今晚與明早各體驗一次不同側的泉池！頂樓設有星空展望台（自費）。
+                </div>
+              </div>
+
+              <div class="play-guide-box">
+                <div class="play-guide-title">🎯 綠之風渡假村私房玩法：</div>
+                <div>• <strong>森之散步湯必泡推薦：</strong>山側與川側各有 10 座階梯式芳香湯池（如蜂蜜湯、蘋果湯、柚子湯、膠原蛋白湯、檜木湯），一邊看雪花飄落一邊巡迴泡湯超享受！</div>
+                <div>• <strong>泡湯後必喝：</strong>大浴場外自動販賣機必買「北海道玻璃瓶裝冰牛奶」，1樓大廳「森之空」閱覽室也提供免費現磨咖啡與花草茶。</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta-row">
+                <span class="time-badge">18:30</span>
+                <span class="badge-transport" style="background-color: var(--yamabuki-yellow);">🍽️ 豪華百匯</span>
+              </div>
+              <h4 class="timeline-card-title">享用飯店和洋盛宴百匯晚餐</h4>
+              <p class="timeline-card-desc">
+                主廚嚴選北海道當季在地新鮮食材，品嚐鮮美刺身、烤物、熱騰騰和風火鍋與精緻洋風甜點。
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- DAY 2 PANE -->
+      <div id="day2" class="day-itinerary-pane anim-bounce-in">
+        
+        <div class="day-banner-box d2">
+          <div class="day-banner-header">
+            <div>
+              <span class="badge-transport" style="background-color: var(--coral-pink);">DAY 2 火山與聖誕浪漫夜</span>
+              <h3 class="day-banner-title" style="margin-top: 4px;">昭和新山 ➔ 熊牧場 ➔ 慕尼黑聖誕市集 ➔ 札幌萬怡酒店</h3>
+            </div>
+          </div>
+          <p style="font-size: 13px; color: #4F4A48;">
+            登有珠山纜車鳥瞰洞爺湖絕景、探訪可愛棕熊，傍晚前進札幌大通公園，在璀璨燈節與慕尼黑市集中品味熱紅酒與聖誕氛圍。
+          </p>
+          <div class="day-meals-bar">
+            <span class="meal-chip">🥣 早餐：飯店精緻早餐</span>
+            <span class="meal-chip">🥩 午餐：和牛燒烤放題＋酒水暢飲</span>
+            <span class="meal-chip">🍷 晚餐：敬請自理（發放代金 ¥2,000 暢遊市集）</span>
+            <span class="meal-chip">🏨 住宿：札幌萬怡酒店 (Courtyard by Marriott Sapporo)</span>
+          </div>
+        </div>
+
+        <div class="timeline-container">
+          
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta-row">
+                <span class="time-badge">08:30</span>
+                <span class="badge-transport" style="background-color: var(--wakatake-green);">🚌 專車出發</span>
+              </div>
+              <h4 class="timeline-card-title">晨間出發前往洞爺湖畔</h4>
+              <p class="timeline-card-desc">飯店享用豐盛早餐後退房，專車前往著名的洞爺湖周邊地質公園景區。</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta-row">
+                <span class="time-badge">09:30</span>
+                <span class="badge-transport" style="background-color: var(--yamabuki-yellow);">🚡 有珠山纜車</span>
+                <span class="badge-must">★ 必去亮點</span>
+              </div>
+              <h4 class="timeline-card-title">【昭和新山】與搭乘【有珠山纜車】360度俯瞰洞爺湖</h4>
+              <p class="timeline-card-desc">
+                近距離欣賞昭和18年地震火山爆發隆起的紅褐色活火山「昭和新山」（目前標高402公尺，白煙裊裊）；接著搭乘有珠山空中纜車直達山頂展望台，360度飽覽壯麗的洞爺湖與羊蹄山美景。
+              </p>
+              <div class="timeline-tip-box">
+                <span>⚠️</span>
+                <div>若遇天候不佳纜車停駛或檢修，現場每人退費日幣 ¥1,500。</div>
+              </div>
+              <div class="play-guide-box">
+                <div class="play-guide-title">🎯 有珠山纜車私房攻略：</div>
+                <div>• <strong>最佳卡位方向：</strong>上山時站在纜車「車廂右側」可近距離直擊昭和新山紅褐色火山口噴煙；面對山上左側則能俯瞰整座蔚藍洞爺湖與中島！</div>
+                <div>• <strong>山頂展望台：</strong>出纜車站旁的「Mt.USU Terrace」擁有超大景觀沙發與火山口步道，天氣晴朗時還能遠眺被稱為蝦夷富士的「羊蹄山」。</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta-row">
+                <span class="time-badge">10:45</span>
+                <span class="badge-transport" style="background-color: var(--coral-pink);">🐻 餵食體驗</span>
+                <span class="badge-must">★ 必去亮點</span>
+              </div>
+              <h4 class="timeline-card-title">【昭和新山熊牧場】親手餵食可愛棕熊</h4>
+              <p class="timeline-card-desc">
+                園區飼養約100頭北海道棕熊。每位旅客特別贈送蘋果或餅乾，可親手投餵給聰明討喜、向旅客揮手作揖撒嬌的棕熊！園內還設有小熊幼稚園與浣熊牧場。
+              </p>
+              <div class="play-guide-box">
+                <div class="play-guide-title">🎯 熊牧場遊玩＆伴手禮建議：</div>
+                <div>• <strong>人籠觀察區：</strong>除了從上方投餵蘋果餅乾，一定要走進地下室的「人籠（人のオリ）」玻璃觀察窗，體驗巨大棕熊就在眼前幾公分聞味道的震撼感！</div>
+                <div>• <strong>牧場出口必買：</strong>出口販賣部有全北海道最齊全的「熊出沒注意」趣味紀念品，以及必買的「北海道馬油護手霜（擦乾裂極有效）」。</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta-row">
+                <span class="time-badge">12:15</span>
+                <span class="badge-transport" style="background-color: var(--yamabuki-yellow);">🥩 豪華午餐</span>
+              </div>
+              <h4 class="timeline-card-title">午餐饗宴：和牛燒烤放題＋酒水暢飲</h4>
+              <p class="timeline-card-desc">
+                午餐享用頂級和牛燒肉吃到飽，搭配多汁蔬菜與日本酒水飲料暢飲，大快朵頤補充活力。
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta-row">
+                <span class="time-badge">15:30</span>
+                <span class="badge-transport" style="background-color: var(--mizuiro-blue);">🏨 飯店Check-in</span>
+              </div>
+              <h4 class="timeline-card-title">入住 2024 新開幕【札幌萬怡酒店】</h4>
+              <p class="timeline-card-desc">
+                北海道首家萬豪萬怡品牌飯店！座落中島公園旁，離地鐵中島公園站僅步行 3 分鐘，館內附設大浴場與舒適客房。
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta-row">
+                <span class="time-badge">17:00 - 21:00</span>
+                <span class="badge-transport" style="background-color: var(--coral-pink);">🚶 自由夜訪</span>
+                <span class="badge-must">★ 必去亮點</span>
+              </div>
+              <h4 class="timeline-card-title">【札幌慕尼黑聖誕市集】&【札幌白色燈節】& 狸小路</h4>
+              <p class="timeline-card-desc">
+                德國慕尼黑與札幌友好姊妹市所舉辦的正宗聖誕市集！大通公園雪景中林立熱鬧木屋攤位，現場販售香料熱紅酒、德國烤香腸、杏仁糖與精美聖誕工藝品。本行程特別發放<strong>每人 ¥2,000 代金</strong>自由品嚐美食！夜晚搭配「白色燈節 White Illumination」，璀璨光雕點亮整條大通公園，隨後可自由漫步至狸小路商店街或薄野拉麵橫丁採購品嚐宵夜。
+              </p>
+
+              <!-- Christmas SVG Illustration -->
+              <div class="timeline-img-slot">
+                <svg width="240" height="90" viewBox="0 0 240 90" fill="none">
+                  <!-- Christmas Tree -->
+                  <polygon points="60,20 80,45 40,45" fill="#B9DAA5" stroke="#3E3A39" stroke-width="2.5"/>
+                  <polygon points="60,35 85,60 35,60" fill="#B9DAA5" stroke="#3E3A39" stroke-width="2.5"/>
+                  <polygon points="60,50 90,75 30,75" fill="#B9DAA5" stroke="#3E3A39" stroke-width="2.5"/>
+                  <rect x="56" y="75" width="8" height="12" fill="#3E3A39"/>
+                  <!-- Star on tree -->
+                  <polygon points="60,12 63,18 69,18 64,22 66,28 60,24 54,28 56,22 51,18 57,18" fill="#F6D27A" stroke="#3E3A39" stroke-width="1.5"/>
+                  
+                  <!-- Mulled Wine Mug -->
+                  <rect x="140" y="38" width="36" height="42" rx="8" fill="#F2A497" stroke="#3E3A39" stroke-width="3"/>
+                  <!-- Mug Handle -->
+                  <path d="M 176 46 Q 192 46 192 58 Q 192 70 176 70" stroke="#3E3A39" stroke-width="3" fill="none"/>
+                  <!-- Orange slice -->
+                  <circle cx="158" cy="38" r="9" fill="#F6D27A" stroke="#3E3A39" stroke-width="2"/>
+                  <!-- Cinnamon stick -->
+                  <rect x="135" y="24" width="6" height="26" transform="rotate(25 135 24)" fill="#3E3A39"/>
+                  <!-- Steam -->
+                  <path d="M 152 28 Q 150 20 155 14" stroke="#3E3A39" stroke-width="2" stroke-linecap="round" class="anim-float"/>
+                  <path d="M 164 26 Q 168 18 162 12" stroke="#3E3A39" stroke-width="2" stroke-linecap="round" class="anim-float"/>
+                </svg>
+              </div>
+
+              <div class="play-guide-box">
+                <div class="play-guide-title">🎯 聖誕市集＆狸小路逛街美食攻略：</div>
+                <div>• <strong>聖誕市集 ¥2,000 怎麼花：</strong>大通公園 2 丁目會場必買「肉桂柳橙香料熱紅酒（可選含年度限定陶瓷馬克杯組合，喝完杯子直接帶回台灣收藏！）」、「德國脆皮烤香腸＋蝴蝶扭結餅」與「現炒焦糖杏仁果」。</div>
+                <div>• <strong>狸小路必逛精華區：</strong>3～5 丁目有遮雨棚不怕下雪！藥妝首選「松本清、大國藥妝、札幌藥妝」，24小時尋寶去「MEGA 唐吉訶德狸小路本店」，新地標「moyuk SAPPORO」還能逛 LOFT 與都市型水族館 AOAO。</div>
+                <div>• <strong>札幌晚餐/宵夜推薦：</strong>想吃正餐推薦「湯咖哩 GARAKU」或「Suage+ 串燒湯咖哩」；宵夜推薦薄野「元祖札幌拉麵橫丁」吃一碗熱騰騰的奶油玉米味噌拉麵，再來一份北海道獨特的「夜パフェ（夜間聖代）」！</div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- DAY 3 PANE -->
+      <div id="day3" class="day-itinerary-pane anim-bounce-in">
+        
+        <div class="day-banner-box d3">
+          <div class="day-banner-header">
+            <div>
+              <span class="badge-transport" style="background-color: var(--mizuiro-blue);">DAY 3 海洋萌友與星野夜境</span>
+              <h3 class="day-banner-title" style="margin-top: 4px;">免稅店 ➔ 尼克斯海洋公園 ➔ TOMAMU 星野渡假村</h3>
+            </div>
+          </div>
+          <p style="font-size: 13px; color: #4F4A48;">
+            登別尼克斯海洋公園欣賞超人氣國王企鵝搖擺散步，下午專車進駐北海道最具代表性的【TOMAMU 星野渡假村】（連住兩晚），夜晚於森林餐廳享用現烤牛排與海鮮丼！
+          </p>
+          <div class="day-meals-bar">
+            <span class="meal-chip">🥣 早餐：飯店美味早餐</span>
+            <span class="meal-chip">🍲 午餐：日式壽喜燒鍋物</span>
+            <span class="meal-chip">🍕 晚餐：星野夢幻森林餐廳自助晚餐 (現烤披薩/海鮮丼/鐵板牛肉)</span>
+            <span class="meal-chip">🏨 住宿：TOMAMU 星野渡假村 (THE TOWER)</span>
+          </div>
+        </div>
+
+        <div class="timeline-container">
+          
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta-row">
+                <span class="time-badge">09:00</span>
+                <span class="badge-transport" style="background-color: var(--yamabuki-yellow);">🛍️ 伴手禮</span>
+              </div>
+              <h4 class="timeline-card-title">免稅商店・自由採購伴手禮</h4>
+              <p class="timeline-card-desc">前往免稅商店，選購精緻日本保健品、零食點心與伴手禮贈送親友。</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta-row">
+                <span class="time-badge">10:30 - 13:30</span>
+                <span class="badge-transport" style="background-color: var(--mizuiro-blue);">🐧 企鵝遊行</span>
+                <span class="badge-must">★ 必去亮點</span>
+              </div>
+              <h4 class="timeline-card-title">【登別尼克斯海洋公園】國王企鵝遊行 ＆ AQUA 水中隧道</h4>
+              <p class="timeline-card-desc">
+                座落於北歐文藝復興浪漫城堡「尼克斯城」內，展示約400種、20,000隻海洋生物！穿過高達 8 公尺的超廣角巨大水槽與 AQUA 水中隧道，魚群在頭頂自在穿梭。最受歡迎的莫過於<strong>「國王企鵝大遊行」</strong>，看企鵝隊伍在眼前搖搖晃晃行進散步，還有海豚與海獅精采表演。
+              </p>
+
+              <!-- Penguin SVG Illustration -->
+              <div class="timeline-img-slot">
+                <svg width="240" height="90" viewBox="0 0 240 90" fill="none">
+                  <!-- Castle Tower in Background -->
+                  <rect x="30" y="30" width="40" height="50" fill="#F0F7FB" stroke="#3E3A39" stroke-width="2.5"/>
+                  <polygon points="50,10 75,30 25,30" fill="#F2A497" stroke="#3E3A39" stroke-width="2.5"/>
+                  <rect x="42" y="55" width="16" height="25" rx="8" fill="#3E3A39"/>
+                  
+                  <!-- Walking Penguin 1 -->
+                  <g transform="translate(100, 15)" class="anim-sway">
+                    <ellipse cx="25" cy="40" rx="15" ry="22" fill="#3E3A39"/>
+                    <ellipse cx="25" cy="44" rx="9" ry="16" fill="#FFFFFF"/>
+                    <polygon points="21,30 29,30 25,35" fill="#F6D27A" stroke="#3E3A39" stroke-width="1.5"/>
+                    <circle cx="20" cy="27" r="2" fill="#FFFFFF"/>
+                    <circle cx="20" cy="27" r="1" fill="#3E3A39"/>
+                    <circle cx="30" cy="27" r="2" fill="#FFFFFF"/>
+                    <circle cx="30" cy="27" r="1" fill="#3E3A39"/>
+                    <circle cx="17" cy="32" r="2" fill="#F2A497"/>
+                    <circle cx="33" cy="32" r="2" fill="#F2A497"/>
+                    <ellipse cx="19" cy="63" rx="5" ry="3" fill="#F6D27A" stroke="#3E3A39" stroke-width="1.5"/>
+                    <ellipse cx="31" cy="63" rx="5" ry="3" fill="#F6D27A" stroke="#3E3A39" stroke-width="1.5"/>
+                  </g>
+
+                  <!-- Little Penguin 2 -->
+                  <g transform="translate(155, 28)" class="anim-sway">
+                    <ellipse cx="20" cy="32" rx="12" ry="17" fill="#3E3A39"/>
+                    <ellipse cx="20" cy="35" rx="7" ry="12" fill="#FFFFFF"/>
+                    <polygon points="17,24 23,24 20,28" fill="#F6D27A"/>
+                    <circle cx="16" cy="22" r="1.5" fill="#3E3A39"/>
+                    <circle cx="24" cy="22" r="1.5" fill="#3E3A39"/>
+                    <ellipse cx="15" cy="50" rx="4" ry="2.5" fill="#F6D27A"/>
+                    <ellipse cx="25" cy="50" rx="4" ry="2.5" fill="#F6D27A"/>
+                  </g>
+                </svg>
+              </div>
+
+              <div class="timeline-tip-box">
+                <span>🐟</span>
+                <div>午餐特別於園區周邊享用暖胃的<strong>日式壽喜燒鍋物</strong>料理。</div>
+              </div>
+
+              <div class="play-guide-box">
+                <div class="play-guide-title">🎯 尼克斯海洋公園遊玩攻略：</div>
+                <div>• <strong>企鵝遊行卡位秘訣：</strong>開演前 10 分鐘先到城堡正前方廣場的「紅線轉角處」蹲下等待，企鵝隊伍會在廣場中央停留約 5 分鐘，是拍特寫的最佳時機！</div>
+                <div>• <strong>隱藏版必看：</strong>除了企鵝與海豚秀，別錯過「銀河水槽」一萬條沙丁魚隨音樂與燈光變換隊形的壯觀風暴秀，以及城堡 4 樓的「觸摸池（可摸魟魚與海星）」。</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta-row">
+                <span class="time-badge">16:30</span>
+                <span class="badge-transport" style="background-color: var(--coral-pink);">🏨 豪華入住</span>
+                <span class="badge-must">★ 必去亮點</span>
+              </div>
+              <h4 class="timeline-card-title">進駐【TOMAMU 星野渡假村 (THE TOWER)】</h4>
+              <p class="timeline-card-desc">
+                抵達佔地1,000公頃的北海道超級渡假勝地！辦理入住取得住宿專用 Special Pass 票卡。本行程將連住兩晚，可從容享受村內世界級設施。
+              </p>
+              <div class="timeline-tip-box">
+                <span>🌊</span>
+                <div>
+                  <strong>微笑海灘 (Mina-Mina Beach)：</strong>日本最大室內恆溫造浪池 (含門票，毛巾免費借，自備泳衣泳帽，刺青者恕無法入場)。<br>
+                  <strong>木林之湯：</strong>森林星空露天風呂 (開放至 23:00)。
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta-row">
+                <span class="time-badge">18:30</span>
+                <span class="badge-transport" style="background-color: var(--yamabuki-yellow);">🍽️ 特色百匯</span>
+                <span class="badge-must">★ 必去亮點</span>
+              </div>
+              <h4 class="timeline-card-title">【森林餐廳 Nininupuri】夢幻森林迎賓晚宴</h4>
+              <p class="timeline-card-desc">
+                在挑高落地玻璃窗、百年蒼翠松樹環繞的夢幻餐廳中，大口品嚐名物現烤披薩、豐盛自製生魚片海鮮丼、多汁鐵板牛肉等高級食材！
+              </p>
+              <div class="play-guide-box">
+                <div class="play-guide-title">🎯 森林餐廳吃貨＆選位攻略：</div>
+                <div>• <strong>黃金選位：</strong>入座時盡量往餐廳深處「兩側大落地窗旁」找位置，夜晚窗外整片針葉林會打上柔和綠光，伴隨飄雪有如置身童話森林！</div>
+                <div>• <strong>必吃三大名物：</strong>① 現煎鐵板沙朗牛排、② 海鮮吧自製「甜蝦＋干貝＋鮭魚卵」豪華海鮮丼、③ 北海道濃郁牛奶霜淇淋配現烤鬆餅。</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta-row">
+                <span class="time-badge">20:30 - 21:30</span>
+                <span class="badge-transport" style="background-color: var(--wakatake-green);">🚶 自行前往</span>
+                <span class="badge-must">★ 必去亮點</span>
+              </div>
+              <h4 class="timeline-card-title">夜訪安藤忠雄【水之教堂】</h4>
+              <p class="timeline-card-desc">
+                梁靜茹經典 MV《崇拜》取景地！由世界建築大師安藤忠雄傾力打造，冬夜水塘凝結成冰雪明鏡，矗立的巨大十字架在燈光與純白積雪映襯下，散發無與倫比的聖潔與寧靜。
+              </p>
+              <div class="timeline-tip-box">
+                <span>⛪</span>
+                <div><strong>參觀時間：</strong>20:30～21:30（最後入場 21:25），免預約自行前往。</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- DAY 4 PANE -->
+      <div id="day4" class="day-itinerary-pane anim-bounce-in">
+        
+        <div class="day-banner-box d4">
+          <div class="day-banner-header">
+            <div>
+              <span class="badge-transport" style="background-color: var(--yamabuki-yellow);">DAY 4 冰雪童話探索日</span>
+              <h3 class="day-banner-title" style="margin-top: 4px;">TOMAMU 星野渡假村全日悠閒體驗 ＆ 霧冰纜車</h3>
+            </div>
+          </div>
+          <p style="font-size: 13px; color: #4F4A48;">
+            清晨搭乘霧冰纜車登上標高1,088公尺的雲海露台，凝望零下嚴寒結凍的「霧冰雪樹奇觀」！全日自由探索村內設施、雪上活動與螢火蟲街。
+          </p>
+          <div class="day-meals-bar">
+            <span class="meal-chip">🥣 早餐：飯店美味早餐</span>
+            <span class="meal-chip">🍜 午餐：敬請自理（推薦螢火蟲街拉麵/湯咖哩）</span>
+            <span class="meal-chip">🥩 晚餐：敬請自理（村內各異國餐廳自由品嚐）</span>
+            <span class="meal-chip">🏨 住宿：TOMAMU 星野渡假村 (THE TOWER 連住第二晚)</span>
+          </div>
+        </div>
+
+        <div class="timeline-container">
+          
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta-row">
+                <span class="time-badge">09:00</span>
+                <span class="badge-transport" style="background-color: var(--mizuiro-blue);">🚡 霧冰纜車</span>
+                <span class="badge-must">★ 必去亮點</span>
+              </div>
+              <h4 class="timeline-card-title">搭乘【TOMAMU 霧冰纜車】眺望霧冰露台絕景</h4>
+              <p class="timeline-card-desc">
+                只有在零下冰雪世界才能遇見的大自然藝術！搭乘纜車直登雲海平台（Unkai Terrace），樹梢凝結成晶瑩剔透的霧冰（Ice Frost），在 Cloud Bar 與 Cloud Walk 步道上宛如漫步雲端，俯瞰日高山脈的雪山壯景。
+              </p>
+
+              <!-- Frost Terrace SVG Illustration -->
+              <div class="timeline-img-slot">
+                <svg width="240" height="90" viewBox="0 0 240 90" fill="none">
+                  <!-- Frost Snow Mountains -->
+                  <polygon points="40,80 100,25 160,80" fill="#A8D3E6" stroke="#3E3A39" stroke-width="2.5"/>
+                  <polygon points="120,80 180,30 230,80" fill="#B9DAA5" stroke="#3E3A39" stroke-width="2.5"/>
+                  <polygon points="85,40 100,25 115,40 100,35" fill="#FFFFFF"/>
+                  <polygon points="168,42 180,30 195,42 180,38" fill="#FFFFFF"/>
+                  
+                  <!-- Frost Covered Pine -->
+                  <polygon points="60,35 72,55 48,55" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2"/>
+                  <polygon points="60,50 78,72 42,72" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2"/>
+                  
+                  <!-- Cable Car Basket -->
+                  <line x1="20" y1="15" x2="220" y2="45" stroke="#3E3A39" stroke-width="2"/>
+                  <g transform="translate(130, 28)" class="anim-sway">
+                    <line x1="14" y1="0" x2="14" y2="12" stroke="#3E3A39" stroke-width="2"/>
+                    <rect x="0" y="12" width="28" height="20" rx="5" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5"/>
+                    <rect x="4" y="16" width="8" height="8" rx="2" fill="#FFFFFF" stroke="#3E3A39" stroke-width="1.5"/>
+                    <rect x="16" y="16" width="8" height="8" rx="2" fill="#FFFFFF" stroke="#3E3A39" stroke-width="1.5"/>
+                  </g>
+                </svg>
+              </div>
+
+              <div class="timeline-tip-box">
+                <span>📋</span>
+                <div>
+                  <strong>預約提醒：</strong>為了讓住客順暢搭乘，請於搭乘前一天 17:00 進入星野官網進行個人預約，搭乘時出示【預約完成 QR Code ＋ 住宿者 Special Pass 票卡】。
+                </div>
+              </div>
+
+              <div class="play-guide-box">
+                <div class="play-guide-title">🎯 霧冰露台必做 3 件事：</div>
+                <div>• <strong>① Kumo Cafe 雲朵甜點：</strong>山頂咖啡廳必點「雲朵熱咖啡（附棉花糖雲朵）」與「霧冰蘇打」，邊取暖邊看窗外雪山！</div>
+                <div>• <strong>② 雲海郵局寄明信片：</strong>在山頂商店選一張限定雲海明信片，蓋上當日標高紀念章投入藍色「雲海郵筒」，可免費寄回台灣給自己做紀念！</div>
+                <div>• <strong>③ 六大展望設施巡禮：</strong>沿著步道依序打卡 Cloud Bar（高腳椅）、Cloud Walk（雲朵空中步道）與 Sky Wedge（鐵達尼船頭觀景台）。</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta-row">
+                <span class="time-badge">11:30 - 16:30</span>
+                <span class="badge-transport" style="background-color: var(--wakatake-green);">🏂 村內探索</span>
+              </div>
+              <h4 class="timeline-card-title">渡假村自由休閒・雪上活動 ＆ 螢火蟲街</h4>
+              <p class="timeline-card-desc">
+                午後時光任您自由安排！可至微笑海灘痛快戲水衝浪、體驗雪上摩托車或初級滑雪，或前往全日本首座能滑雪直接抵達的商店街<strong>「螢火蟲街 (Hotalu Street)」</strong>品嚐人氣湯咖哩與拉麵。
+              </p>
+              <div class="play-guide-box">
+                <div class="play-guide-title">🎯 星野渡假村全日私房路線：</div>
+                <div>• <strong>早午餐新招：</strong>除了森林餐廳，早餐也可選擇去「hal」吃招牌法式吐司與鮭魚卵可麗餅，或去「SORA 天空餐廳」邊看雪景邊吃海鮮蓋飯！</div>
+                <div>• <strong>螢火蟲街美食推薦：</strong>從 The Tower 走室內暖氣玻璃連通道即可直達！「AFURI 阿夫利（清爽柚子鹽拉麵）」、「Soup Curry GARAKU（濃郁秘製湯咖哩）」、「 Tukino 咖啡廳（北海道牛乳甜點）」都在這條街上。</div>
+                <div>• <strong>飯店商品抵用券 ¥2,000 使用提醒：</strong>別忘了在 The Tower 一樓商店使用贈送的 ¥2,000 抵用券，購買星野限定農場牛奶糖、起司蛋糕或戶外品牌小物！</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta-row">
+                <span class="time-badge">18:00</span>
+                <span class="badge-transport" style="background-color: var(--yamabuki-yellow);">🍽️ 美食巡禮</span>
+              </div>
+              <h4 class="timeline-card-title">晚餐村內美食自由巡禮（敬請自理）</h4>
+              <p class="timeline-card-desc">
+                渡假村內匯聚義大利餐廳 OTTO SETTE、HAL 自助餐、和牛鐵板燒、居酒屋等二十多間多樣餐廳，自由選購品嚐。
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta-row">
+                <span class="time-badge">20:30</span>
+                <span class="badge-transport" style="background-color: var(--coral-pink);">♨️ 泡湯放鬆</span>
+              </div>
+              <h4 class="timeline-card-title">【木林之湯】星空森林露天風呂</h4>
+              <p class="timeline-card-desc">
+                在寧靜的夜晚仰望北海道純淨無光害的滿天星斗，身心沉浸在溫暖的泉水中，聆聽風吹過樹梢的低語。
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- DAY 5 PANE -->
+      <div id="day5" class="day-itinerary-pane anim-bounce-in">
+        
+        <div class="day-banner-box d5">
+          <div class="day-banner-header">
+            <div>
+              <span class="badge-transport" style="background-color: var(--wakatake-green);">DAY 5 採購與平安返台</span>
+              <h3 class="day-banner-title" style="margin-top: 4px;">星野渡假村 ➔ 千歲 AEON 購物商場 ➔ 新千歲機場 ➔ 桃園機場</h3>
+            </div>
+          </div>
+          <p style="font-size: 13px; color: #4F4A48;">
+            渡假村悠閒退房後前往千歲大型購物廣場盡情採購伴手禮與藥妝，隨後前往新千歲機場搭乘星宇航空返回台灣，結束美好難忘的北海道之旅！
+          </p>
+          <div class="day-meals-bar">
+            <span class="meal-chip">🥣 早餐：飯店晨間早餐</span>
+            <span class="meal-chip">🍱 午餐：AEON 商場或機場商場敬請自理</span>
+            <span class="meal-chip">✈️ 晚餐：星宇航空精緻機上餐</span>
+            <span class="meal-chip">🏡 住宿：溫暖的家</span>
+          </div>
+        </div>
+
+        <div class="timeline-container">
+          
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta-row">
+                <span class="time-badge">09:30</span>
+                <span class="badge-transport" style="background-color: var(--wakatake-green);">🚌 專車啟程</span>
+              </div>
+              <h4 class="timeline-card-title">告別星野渡假村・專車出發</h4>
+              <p class="timeline-card-desc">
+                整理行李辦理退房，向美麗的雪白度假村道別，專車直奔千歲地區。
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta-row">
+                <span class="time-badge">11:00 - 13:00</span>
+                <span class="badge-transport" style="background-color: var(--coral-pink);">🛍️ 盡情採購</span>
+                <span class="badge-must">★ 必去亮點</span>
+              </div>
+              <h4 class="timeline-card-title">【千歲 AEON 購物廣場】最後血拚採購</h4>
+              <p class="timeline-card-desc">
+                北海道超人氣大型購物商城，集結各類日系服飾、生活雜貨、大型超市、藥妝與在地特產零食（白色戀人、薯條三兄弟、六花亭奶油夾心餅），午餐可於商場美食街自由享用。
+              </p>
+              <div class="play-guide-box">
+                <div class="play-guide-title">🎯 千歲 AEON ＆ 新千歲機場採買攻略：</div>
+                <div>• <strong>千歲 AEON 1樓超市必買：</strong>北海道限定版「日清北のどん兵衛豆皮烏龍麵」、大包裝帆立貝乾、日本產大顆草莓（限在機場登機前吃完）、六花亭專櫃伴手禮。</div>
+                <div>• <strong>新千歲機場必吃甜點：</strong>通過安檢前若時間充裕，國內線航廈 2 樓必吃「KINOTOYA 極上牛乳霜淇淋（濃郁高達十層！）」、「北菓樓夢不思議泡芙」與「札幌農學校現烤起司塔」；國際線免稅店則可免稅補齊白色戀人、薯條三兄弟與 ROYCE 生巧克力！</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta-row">
+                <span class="time-badge">13:20</span>
+                <span class="badge-transport" style="background-color: var(--yamabuki-yellow);">✈️ 機場報到</span>
+              </div>
+              <h4 class="timeline-card-title">抵達新千歲機場・辦理退稅登機</h4>
+              <p class="timeline-card-desc">
+                抵達新千歲國際線航廈辦理托運登機，若有免稅商品經海關查驗，候機時可於免稅店進行最後補貨。
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta-row">
+                <span class="time-badge">15:20 - 19:05</span>
+                <span class="badge-transport" style="background-color: var(--mizuiro-blue);">✈️ 星宇航空 JX851</span>
+              </div>
+              <h4 class="timeline-card-title">星宇 JX851 班機啟程・平安返抵桃園</h4>
+              <p class="timeline-card-desc">
+                搭乘星宇航空返回台北桃園國際機場第一航廈，領取行李後平安返抵溫暖的家，滿載北海道的美麗雪景與溫馨回憶！
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==================== PHOTO POSES & SCENERY GUIDE SECTION ==================== -->
+    <section id="photo-guide">
+      <div class="sec-title-wrap">
+        <div>
+          <h2 class="sec-title">📸 北海道雪國拍照姿勢 ＆ 絕美風景指南</h2>
+          <p class="sec-subtitle">配合行程 6 大景點量身設計！日劇感雪地構圖、人像姿勢與手機調色秘訣</p>
+        </div>
+      </div>
+
+      <!-- Filter Pills for Photo Guide -->
+      <div class="photo-filter-bar" id="photoFilterBar">
+        <button class="photo-filter-btn active" data-pcat="all">✨ 全部拍照靈感 (6)</button>
+        <button class="photo-filter-btn" data-pcat="pose">💃 雪地人像姿勢</button>
+        <button class="photo-filter-btn" data-pcat="scenery">🏔️ 大景構圖點位</button>
+      </div>
+
+      <!-- 6 Illustrated Photo Pose & Scenic Cards -->
+      <div class="photo-grid" id="photoCardsGrid">
+
+        <!-- Pose 1: Blowing Snowflakes -->
+        <div class="photo-card" data-pcat="pose">
+          <div class="photo-svg-frame" style="background-color: var(--blue-soft);">
+            <svg width="220" height="120" viewBox="0 0 220 120" fill="none">
+              <!-- Dark Green Pine Background to contrast white snow -->
+              <polygon points="35,20 65,95 5,95" fill="#B9DAA5" stroke="#3E3A39" stroke-width="2.5"/>
+              <polygon points="185,25 210,95 160,95" fill="#B9DAA5" stroke="#3E3A39" stroke-width="2.5"/>
+              <!-- Character with cute mittens blowing snow -->
+              <circle cx="110" cy="52" r="20" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3"/>
+              <!-- Cute Knit Beanie -->
+              <path d="M 90 46 Q 110 22 130 46 Z" fill="#F2A497" stroke="#3E3A39" stroke-width="3"/>
+              <circle cx="110" cy="24" r="6" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2.5"/>
+              <!-- Happy Winking Eyes -->
+              <path d="M 100 50 Q 104 46 108 50" stroke="#3E3A39" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M 114 50 Q 118 46 122 50" stroke="#3E3A39" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="97" cy="56" r="3" fill="#F2A497"/>
+              <circle cx="123" cy="56" r="3" fill="#F2A497"/>
+              <!-- Cupped Mitten Hands -->
+              <ellipse cx="102" cy="72" rx="10" ry="7" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5"/>
+              <ellipse cx="118" cy="72" rx="10" ry="7" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5"/>
+              <!-- Mound of Snow in hands -->
+              <path d="M 94 68 Q 110 56 126 68 Z" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2"/>
+              <!-- Floating Snowflakes blown out -->
+              <g class="anim-float">
+                <circle cx="142" cy="52" r="4" fill="#FFFFFF" stroke="#3E3A39" stroke-width="1.5"/>
+                <circle cx="158" cy="40" r="3.5" fill="#FFFFFF" stroke="#3E3A39" stroke-width="1.5"/>
+                <circle cx="152" cy="60" r="2.5" fill="#FFFFFF" stroke="#3E3A39" stroke-width="1.5"/>
+                <circle cx="75" cy="44" r="3.5" fill="#FFFFFF" stroke="#3E3A39" stroke-width="1.5"/>
+              </g>
+            </svg>
+          </div>
+          <div class="photo-tag-row">
+            <span class="photo-spot-pill">📍 北湯澤森林 / 星野松林</span>
+            <span class="badge-must">★ 日劇女主感</span>
+          </div>
+          <h3 style="font-size: 16px; font-weight: 900;">① 雙手捧雪・吹雪花連拍</h3>
+          <div class="photo-pose-steps">
+            <div>💃 <strong>動作擺法：</strong>戴上可愛連指手套捧起剛落下的鬆軟粉雪，湊近嘴邊往鏡頭斜上方輕吹，眉眼彎彎微笑。</div>
+            <div>🏞️ <strong>風景構圖：</strong>背後挑選<strong>「深綠色針葉松樹或木屋」</strong>當深色背景，開啟手機連拍或原況照片，雪花飛舞的白色顆粒最清楚！</div>
+          </div>
+        </div>
+
+        <!-- Pose 2: Scarf Look Back (Love Letter style) -->
+        <div class="photo-card" data-pcat="pose">
+          <div class="photo-svg-frame" style="background-color: var(--coral-soft);">
+            <svg width="220" height="120" viewBox="0 0 220 120" fill="none">
+              <!-- Snowy Lake & Mountain Horizon -->
+              <polygon points="10,85 65,35 120,85" fill="#A8D3E6" stroke="#3E3A39" stroke-width="2.5"/>
+              <path d="M 0 85 L 220 85 L 220 120 L 0 120 Z" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2.5"/>
+              <!-- Footprints in snow -->
+              <ellipse cx="45" cy="102" rx="5" ry="2.5" fill="#A8D3E6" stroke="#3E3A39" stroke-width="1.5"/>
+              <ellipse cx="65" cy="96" rx="5" ry="2.5" fill="#A8D3E6" stroke="#3E3A39" stroke-width="1.5"/>
+              <ellipse cx="85" cy="104" rx="5" ry="2.5" fill="#A8D3E6" stroke="#3E3A39" stroke-width="1.5"/>
+              <!-- Character Looking Back with Big Coral Scarf -->
+              <g transform="translate(115, 22)" class="anim-sway">
+                <path d="M 10 55 L 40 55 L 45 92 L 5 92 Z" fill="#F6D27A" stroke="#3E3A39" stroke-width="3"/>
+                <circle cx="25" cy="30" r="18" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3"/>
+                <!-- Eyes looking back -->
+                <circle cx="19" cy="26" r="2.2" fill="#3E3A39"/>
+                <circle cx="30" cy="26" r="2.2" fill="#3E3A39"/>
+                <!-- Big Fluffy Scarf covering mouth/nose -->
+                <rect x="4" y="33" width="42" height="22" rx="10" fill="#F2A497" stroke="#3E3A39" stroke-width="3"/>
+                <rect x="30" y="48" width="12" height="26" rx="5" fill="#F2A497" stroke="#3E3A39" stroke-width="2.5"/>
+              </g>
+            </svg>
+          </div>
+          <div class="photo-tag-row">
+            <span class="photo-spot-pill">📍 洞爺湖畔 / 中島公園</span>
+            <span class="badge-must">★ 電影《情書》風</span>
+          </div>
+          <h3 style="font-size: 16px; font-weight: 900;">② 圍巾遮半臉・雪地腳印回眸</h3>
+          <div class="photo-pose-steps">
+            <div>💃 <strong>動作擺法：</strong>將亮色粗針織圍巾拉高遮住鼻尖與下巴，只露出一雙笑眼；先背對鏡頭在未踩過的雪地走出排腳印，聽口令自然回頭。</div>
+            <div>🏞️ <strong>風景構圖：</strong>開啟手機 <strong>2x 或 3x 人像模式</strong>，讓延伸的雪地腳印與遠方有珠山、洞爺湖形成溫柔景深。</div>
+          </div>
+        </div>
+
+        <!-- Pose 3: Low Angle Penguin Walk -->
+        <div class="photo-card" data-pcat="pose">
+          <div class="photo-svg-frame" style="background-color: var(--yellow-soft);">
+            <svg width="220" height="120" viewBox="0 0 220 120" fill="none">
+              <!-- Nixe Castle Spire -->
+              <polygon points="175,12 198,42 152,42" fill="#F2A497" stroke="#3E3A39" stroke-width="2.5"/>
+              <rect x="157" y="42" width="36" height="60" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2.5"/>
+              <!-- Red Parade Line -->
+              <line x1="10" y1="102" x2="210" y2="102" stroke="#F2A497" stroke-width="4" stroke-dasharray="8,4"/>
+              <!-- Crouching Person with Camera/Pose -->
+              <circle cx="65" cy="48" r="14" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2.5"/>
+              <path d="M 48 62 Q 65 58 82 62 L 78 96 L 52 96 Z" fill="#A8D3E6" stroke="#3E3A39" stroke-width="2.5"/>
+              <!-- Penguin waddling next to person -->
+              <g transform="translate(105, 42)" class="anim-sway">
+                <ellipse cx="20" cy="32" rx="14" ry="22" fill="#3E3A39" stroke="#3E3A39" stroke-width="2.5"/>
+                <ellipse cx="20" cy="35" rx="8" ry="15" fill="#FFFFFF"/>
+                <polygon points="16,20 24,20 20,26" fill="#F6D27A"/>
+                <circle cx="16" cy="18" r="1.8" fill="#FFFFFF"/>
+                <circle cx="24" cy="18" r="1.8" fill="#FFFFFF"/>
+              </g>
+            </svg>
+          </div>
+          <div class="photo-tag-row">
+            <span class="photo-spot-pill">📍 登別尼克斯海洋公園</span>
+            <span class="badge-must">★ 超萌同框</span>
+          </div>
+          <h3 style="font-size: 16px; font-weight: 900;">③ 低角度蹲拍・與國王企鵝齊步走</h3>
+          <div class="photo-pose-steps">
+            <div>💃 <strong>動作擺法：</strong>在遊行紅線旁<strong>「完全蹲下」</strong>，雙手微張模仿企鵝翅膀，臉部朝向企鵝隊伍或對鏡頭歪頭微笑。</div>
+            <div>🏞️ <strong>風景構圖：</strong>攝影師將手機反拿（鏡頭朝下貼近地面），以企鵝身高視角向上仰拍，把企鵝、人物與後方的歐風尼克斯城堡尖塔同時收進畫面！</div>
+          </div>
+        </div>
+
+        <!-- Pose 4: Church on the Water Silhouette -->
+        <div class="photo-card" data-pcat="scenery">
+          <div class="photo-svg-frame" style="background-color: var(--blue-soft);">
+            <svg width="220" height="120" viewBox="0 0 220 120" fill="none">
+              <!-- Night Frame Concrete Wall -->
+              <rect x="15" y="10" width="190" height="100" rx="8" fill="#A8D3E6" stroke="#3E3A39" stroke-width="3"/>
+              <!-- Snow Ground -->
+              <rect x="18" y="75" width="184" height="32" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2"/>
+              <!-- Iconic Cross in Center -->
+              <rect x="106" y="22" width="8" height="56" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2.5"/>
+              <rect x="88" y="36" width="44" height="8" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2.5"/>
+              <!-- Back Silhouette of Person admiring -->
+              <circle cx="65" cy="64" r="10" fill="#3E3A39"/>
+              <path d="M 50 76 Q 65 72 80 76 L 83 107 L 47 107 Z" fill="#3E3A39"/>
+            </svg>
+          </div>
+          <div class="photo-tag-row">
+            <span class="photo-spot-pill">📍 星野 安藤忠雄水之教堂</span>
+            <span class="badge-must">★ 靜謐建築感</span>
+          </div>
+          <h3 style="font-size: 16px; font-weight: 900;">④ 水之教堂・對稱框景背影剪影</h3>
+          <div class="photo-pose-steps">
+            <div>💃 <strong>動作擺法：</strong>千萬不要開閃光燈！站在或坐在玻璃窗前，以不看鏡頭的「背影或45度側臉」靜靜凝望窗外雪地十字架。</div>
+            <div>🏞️ <strong>風景構圖：</strong>利用安藤忠雄清水模的十字窗框做<strong>「正中央對稱構圖」</strong>，窗外雪地打光與室內暗部會形成極具神聖感的電影剪影。</div>
+          </div>
+        </div>
+
+        <!-- Pose 5: Cloud Bar & Frost Trees -->
+        <div class="photo-card" data-pcat="scenery">
+          <div class="photo-svg-frame" style="background-color: var(--green-soft);">
+            <svg width="220" height="120" viewBox="0 0 220 120" fill="none">
+              <!-- Hidaka Mountains in Distance -->
+              <polygon points="10,95 65,45 120,95" fill="#A8D3E6" stroke="#3E3A39" stroke-width="2"/>
+              <polygon points="95,95 155,38 210,95" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2"/>
+              <!-- Tall Cloud Bar Stool -->
+              <line x1="85" y1="45" x2="85" y2="108" stroke="#3E3A39" stroke-width="3"/>
+              <line x1="125" y1="45" x2="125" y2="108" stroke="#3E3A39" stroke-width="3"/>
+              <line x1="85" y1="65" x2="125" y2="65" stroke="#3E3A39" stroke-width="2"/>
+              <line x1="85" y1="85" x2="125" y2="85" stroke="#3E3A39" stroke-width="2"/>
+              <rect x="75" y="40" width="60" height="7" rx="3" fill="#F6D27A" stroke="#3E3A39" stroke-width="2.5"/>
+              <!-- Person sitting on Cloud Bar waving -->
+              <circle cx="105" cy="20" r="9" fill="#FFFCF6" stroke="#3E3A39" stroke-width="2.5"/>
+              <path d="M 95 30 L 115 30 L 118 42 L 92 42 Z" fill="#F2A497" stroke="#3E3A39" stroke-width="2.5"/>
+              <path d="M 115 32 L 128 18" stroke="#3E3A39" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="photo-tag-row">
+            <span class="photo-spot-pill">📍 星野 霧冰纜車雲海平台</span>
+            <span class="badge-must">★ 漫步雲端大景</span>
+          </div>
+          <h3 style="font-size: 16px; font-weight: 900;">⑤ Cloud Bar 高腳椅・仰拍雪山樹海</h3>
+          <div class="photo-pose-steps">
+            <div>💃 <strong>動作擺法：</strong>爬上 3 公尺高的 Cloud Bar 高腳椅（或站在 Cloud Walk 雲朵步道最前端），高舉單手向遠方雪山打招呼、雙腳自然懸空擺動。</div>
+            <div>🏞️ <strong>風景構圖：</strong>攝影師開啟 <strong>0.5x 超廣角由下往上仰拍</strong>，將腳下整片銀白霧冰森林與日高山脈連峰一網打盡！</div>
+          </div>
+        </div>
+
+        <!-- Pose 6: Christmas Market Mulled Wine Bokeh -->
+        <div class="photo-card" data-pcat="pose">
+          <div class="photo-svg-frame" style="background-color: var(--yellow-soft);">
+            <svg width="220" height="120" viewBox="0 0 220 120" fill="none">
+              <!-- Bokeh Golden Lights in Background -->
+              <circle cx="35" cy="30" r="10" fill="#F6D27A" stroke="#3E3A39" stroke-width="1.5" class="anim-pulse"/>
+              <circle cx="65" cy="55" r="7" fill="#F2A497" stroke="#3E3A39" stroke-width="1.5"/>
+              <circle cx="175" cy="28" r="11" fill="#F6D27A" stroke="#3E3A39" stroke-width="1.5" class="anim-pulse"/>
+              <circle cx="190" cy="65" r="8" fill="#A8D3E6" stroke="#3E3A39" stroke-width="1.5"/>
+              <circle cx="150" cy="48" r="6" fill="#B9DAA5" stroke="#3E3A39" stroke-width="1.5"/>
+              <!-- Person holding warm mug close to face -->
+              <circle cx="110" cy="50" r="20" fill="#FFFCF6" stroke="#3E3A39" stroke-width="3"/>
+              <path d="M 100 47 Q 104 43 108 47" stroke="#3E3A39" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M 114 47 Q 118 43 122 47" stroke="#3E3A39" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="98" cy="54" r="3.5" fill="#F2A497"/>
+              <circle cx="122" cy="54" r="3.5" fill="#F2A497"/>
+              <!-- Red Christmas Mug -->
+              <rect x="96" y="64" width="28" height="32" rx="6" fill="#F2A497" stroke="#3E3A39" stroke-width="2.5"/>
+              <path d="M 124 70 Q 134 70 134 78 Q 134 86 124 86" stroke="#3E3A39" stroke-width="2.5" fill="none"/>
+            </svg>
+          </div>
+          <div class="photo-tag-row">
+            <span class="photo-spot-pill">📍 札幌慕尼黑聖誕市集 / 白色燈節</span>
+            <span class="badge-must">★ 浪漫光斑夜拍</span>
+          </div>
+          <h3 style="font-size: 16px; font-weight: 900;">⑥ 聖誕熱紅酒・暖光捧杯特寫</h3>
+          <div class="photo-pose-steps">
+            <div>💃 <strong>動作擺法：</strong>雙手捧著剛買的熱紅酒聖誕馬克杯湊近臉頰取暖，站在木屋攤位屋簷下，讓攤位的暖黃燈光自然照亮臉龐。</div>
+            <div>🏞️ <strong>風景構圖：</strong>身體離後方大通公園的聖誕樹彩燈約 5～10 公尺遠，開啟人像模式，背後萬顆燈飾會化為超夢幻的圓形光斑！</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Camera Settings & Pro Tips Box -->
+      <div class="ink-box" style="margin-top: 16px; padding: 16px; background-color: var(--yellow-soft);">
+        <h3 style="font-size: 15px; font-weight: 900; margin-bottom: 8px;">💡 北海道雪地攝影 4 大神級小撇步（手機直出不求人）：</h3>
+        <div style="display: grid; grid-template-columns: 1fr; gap: 6px; font-size: 12px; color: #4A4442;">
+          <div>🔆 <strong>① 曝光補償拉高 (+0.3 ～ +0.7 EV)：</strong>白雪反光極強，手機自動測光常把白雪拍成灰暗色、人臉變黑！拍照時點擊螢幕對焦臉部，將旁邊的「☀️小太陽」往上微調拉亮，雪地瞬間潔白透亮、氣色超紅潤。</div>
+          <div>🧣 <strong>② 穿搭撞色最出片：</strong>雪地背景一片純白，穿白色或淺灰外套容易「隱形」；搭配<strong>珊瑚粉、山吹黃、水藍色、正紅色或格紋圍巾毛帽</strong>，在雪地裡視覺焦點滿分！</div>
+          <div>🌆 <strong>③ 搶拍 15:30～16:20「藍調時刻 (Blue Hour)」：</strong>北海道 12 月約下午 4 點日落，日落前後半小時天空會呈現絕美的粉紫與靜謐寶藍色，搭配剛亮起的暖黃街燈與白雪是全天最美的時刻。</div>
+          <div>🔋 <strong>④ 手機防凍防關機：</strong>零下低溫容易讓電池瞬間掉電，建議在手機殼背面或外套口袋放一個暖暖包，拍完立刻收回口袋保溫。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ACCOMMODATIONS SECTION ==================== -->
+    <section id="hotels">
+      <div class="sec-title-wrap">
+        <div>
+          <h2 class="sec-title">🏨 精選住宿介紹</h2>
+          <p class="sec-subtitle">三大特色頂級名宿・極致溫泉、都市奢華與森林渡假村</p>
+        </div>
+      </div>
+
+      <!-- Hotel 1: Kitayuzawa Midorinokaze -->
+      <div class="hotel-card">
+        <div class="hotel-header">
+          <div>
+            <span class="hotel-tag" style="background-color: var(--wakatake-green);">DAY 1 入住</span>
+            <h3 class="hotel-name">北湯澤 綠之風渡假村</h3>
+            <p class="hotel-sub">Midorinokaze Resort Kitayuzawa ｜ 北湯澤溫泉</p>
+          </div>
+        </div>
+
+        <div class="hotel-highlight-grid">
+          <div class="hotel-feat">
+            <strong>♨️ 日本最大 150 坪大露天風呂</strong>
+            共分「山側 10 湯」與「川側 10 湯」，並加入 20 種多元芳香草本植物湯泉。
+          </div>
+          <div class="hotel-feat">
+            <strong>⏰ 泡湯清潔與互換時間</strong>
+            日間 11:00~15:00 及凌晨 02:00~03:30 為清掃男女互換時段，晚早各泡一次最享受！
+          </div>
+          <div class="hotel-feat">
+            <strong>✨ 頂樓星空展望台</strong>
+            無光害森林夜空，晴朗時可自由前往頂樓展望台（需自費）觀賞銀河繁星。
+          </div>
+          <div class="hotel-feat">
+            <strong>📖 開放式舒適閱讀沙發區</strong>
+            挑高明亮大廳設有閱覽區與舒適沙發，免費提供迎賓放鬆空間。
+          </div>
+        </div>
+      </div>
+
+      <!-- Hotel 2: Courtyard by Marriott Sapporo -->
+      <div class="hotel-card">
+        <div class="hotel-header">
+          <div>
+            <span class="hotel-tag" style="background-color: var(--coral-pink);">DAY 2 入住</span>
+            <h3 class="hotel-name">札幌萬怡酒店</h3>
+            <p class="hotel-sub">Courtyard by Marriott Sapporo ｜ 2024 年全新開幕</p>
+          </div>
+        </div>
+
+        <div class="hotel-highlight-grid">
+          <div class="hotel-feat">
+            <strong>🆕 2024年全新旗艦登場</strong>
+            萬豪國際集團北海道首間萬怡酒店，主打現代簡約與自然共生美學風格。
+          </div>
+          <div class="hotel-feat">
+            <strong>🚇 緊鄰地鐵中島公園站</strong>
+            步行僅 3 分鐘！前往大通公園、薄野、狸小路商圈搭乘地鐵或散步皆極為便利。
+          </div>
+          <div class="hotel-feat">
+            <strong>🛁 館內大浴場設施</strong>
+            市中心少數配備舒適大浴場與現代健身房的頂級飯店，消除行街疲勞。
+          </div>
+          <div class="hotel-feat">
+            <strong>🛏️ 寬敞舒眠空間</strong>
+            房型明顯較一般日本市區商務旅館寬敞，提供絕佳隔音與頂級寢具。
+          </div>
+        </div>
+      </div>
+
+      <!-- Hotel 3: TOMAMU Hoshino Resorts -->
+      <div class="hotel-card">
+        <div class="hotel-header">
+          <div>
+            <span class="hotel-tag" style="background-color: var(--yamabuki-yellow);">DAY 3 & 4 連住兩晚</span>
+            <h3 class="hotel-name">TOMAMU 星野渡假村 (THE TOWER)</h3>
+            <p class="hotel-sub">Hoshino Resorts TOMAMU ｜ 1,000 公頃雪國度假勝地</p>
+          </div>
+        </div>
+
+        <div class="hotel-highlight-grid">
+          <div class="hotel-feat">
+            <strong>🌊 微笑海灘 Mina-Mina Beach</strong>
+            日本最大室內人造浪池 (長80m寬30m恆溫30°C)，含門票，毛巾免費借，刺青者恕無法入場。
+          </div>
+          <div class="hotel-feat">
+            <strong>🌲 夢幻森林餐廳 Nininupuri</strong>
+            挑高巨幅玻璃窗環繞百年針葉林，無限品嚐現烤披薩、刺身海鮮丼與鐵板牛肉。
+          </div>
+          <div class="hotel-feat">
+            <strong>⛪ 安藤忠雄 水之教堂</strong>
+            清水混凝土大師代表作，夜晚開放參觀（20:30~21:30，最後入場21:25）。
+          </div>
+          <div class="hotel-feat">
+            <strong>🚡 霧冰纜車 雲海平台</strong>
+            登頂眺望零下嚴寒結霜奇景，請於前一日 17:00 於官網預約並持專用票卡搭乘。
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==================== CHECKLIST & PACKING SECTION ==================== -->
+    <section id="checklist">
+      <div class="sec-title-wrap">
+        <div>
+          <h2 class="sec-title">✅ 待辦事項與行李清單</h2>
+          <p class="sec-subtitle">可離線勾選儲存，不怕遺漏任何重要證件或保暖裝備</p>
+        </div>
+        <button id="resetChecklistBtn" class="ink-btn" style="padding: 4px 10px; font-size: 11px; background-color: var(--white);">
+          🔄 重置清單
+        </button>
+      </div>
+
+      <div class="checklist-wrap">
+        
+        <!-- Progress Bar -->
+        <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 900;">
+          <span>準備完成度</span>
+          <span id="progressText">0 / 22 項 (0%)</span>
+        </div>
+        <div class="progress-bar-container">
+          <div id="progressBarFill" class="progress-bar-fill"></div>
+        </div>
+
+        <!-- Filter Pills -->
+        <div class="checklist-filter-pills" id="checklistFilterPills">
+          <button class="filter-btn active" data-cat="all">全部 (All)</button>
+          <button class="filter-btn" data-cat="doc">🪪 證件資金</button>
+          <button class="filter-btn" data-cat="warm">❄️ 冬季保暖</button>
+          <button class="filter-btn" data-cat="elec">🔌 電器通訊</button>
+          <button class="filter-btn" data-cat="med">💊 常備藥品</button>
+          <button class="filter-btn" data-cat="perk">🎁 參團專屬</button>
+        </div>
+
+        <!-- Checklist Rows -->
+        <div class="checklist-items" id="checklistContainer">
+          <!-- Dynamically populated from JavaScript -->
+        </div>
+
+        <!-- Add Custom Task Form -->
+        <form id="addTaskForm" class="add-task-row">
+          <input type="text" id="taskInput" class="task-input" placeholder="＋ 輸入想增加的個人待辦或想買物品..." maxlength="30" required>
+          <button type="submit" class="ink-btn" style="background-color: var(--yamabuki-yellow); white-space: nowrap; font-size: 13px;">
+            新增項目
+          </button>
+        </form>
+
+      </div>
+    </section>
+
+    <!-- ==================== TRAVEL UTILITIES SECTION ==================== -->
+    <section id="utilities">
+      <div class="sec-title-wrap">
+        <div>
+          <h2 class="sec-title">🧰 隨身實用工具箱</h2>
+          <p class="sec-subtitle">匯率換算、免稅湊單記帳本、洋蔥式穿搭模擬、必買伴手禮與日語卡</p>
+        </div>
+      </div>
+
+      <div class="util-grid">
+        
+        <!-- Tool 1: Currency Converter -->
+        <div class="util-card">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3 style="font-size: 16px; font-weight: 900;">💴 日幣 ➔ 台幣離線換算</h3>
+            <span style="font-size: 11px; background-color: var(--yellow-soft); padding: 2px 6px; border: 1px solid var(--border-ink); border-radius: 6px;">
+              匯率約 0.215
+            </span>
+          </div>
+
+          <div class="calc-input-row">
+            <span style="font-weight: 900; font-size: 16px;">¥</span>
+            <input type="number" id="jpyInput" class="calc-input" placeholder="輸入日幣金額" value="2000" min="0">
+          </div>
+
+          <div style="font-size: 14px; font-weight: 900; background-color: var(--green-soft); border: 2px solid var(--border-ink); border-radius: 12px; padding: 10px; text-align: center;">
+            約合新台幣：<span id="twdResult" style="font-size: 20px; color: #D94432;">430</span> 元 TWD
+            <div style="font-size: 11px; color: #555; font-weight: 700; margin-top: 2px;">
+              （若享 10% 免稅後約：<span id="twdTaxFreeResult">387</span> 元 TWD）
+            </div>
+          </div>
+
+          <div class="calc-quick-pills">
+            <button class="calc-pill" data-val="1000">¥1,000</button>
+            <button class="calc-pill" data-val="2000">¥2,000 (市集代金)</button>
+            <button class="calc-pill" data-val="5000">¥5,000 (免稅門檻)</button>
+            <button class="calc-pill" data-val="10000">¥10,000</button>
+            <button class="calc-pill" data-val="30000">¥30,000</button>
+          </div>
+        </div>
+
+        <!-- Tool 2: Tax-Free Shopping & Expense Calculator -->
+        <div class="util-card">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3 style="font-size: 16px; font-weight: 900;">🧾 免稅湊單 ＆ 購物記帳本</h3>
+            <button id="clearExpenseBtn" class="calc-pill" style="background-color: var(--coral-soft);">清空重算</button>
+          </div>
+
+          <!-- Tax Free Progress Status -->
+          <div style="background-color: var(--blue-soft); border: 2px solid var(--border-ink); border-radius: 12px; padding: 8px 10px; font-size: 12px;">
+            <div style="display: flex; justify-content: space-between; font-weight: 900;">
+              <span>目前累計：<span id="expenseTotalJpy">¥0</span> (<span id="expenseTotalTwd">NT$0</span>)</span>
+              <span id="taxFreeBadge" style="color: #D94432;">差 ¥5,000 免稅</span>
+            </div>
+            <div class="progress-bar-container" style="height: 10px; margin: 6px 0 2px 0;">
+              <div id="taxFreeBarFill" class="progress-bar-fill" style="background-color: var(--yamabuki-yellow);"></div>
+            </div>
+          </div>
+
+          <!-- Add Expense Form -->
+          <form id="addExpenseForm" style="display: flex; gap: 6px;">
+            <input type="text" id="expNameInput" class="task-input" placeholder="品項 (例: 合力他命)" style="padding: 6px 8px; width: 45%;" required>
+            <input type="number" id="expPriceInput" class="task-input" placeholder="¥日幣未稅" style="padding: 6px 8px; width: 35%;" min="1" required>
+            <button type="submit" class="ink-btn" style="padding: 6px 10px; font-size: 12px; background-color: var(--yamabuki-yellow); white-space: nowrap;">＋記一筆</button>
+          </form>
+
+          <!-- Expense Items List -->
+          <div id="expenseListContainer" class="expense-list">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Tool 3: Interactive Winter Layering Simulator -->
+        <div class="util-card">
+          <h3 style="font-size: 16px; font-weight: 900;">🧥 北海道洋蔥式穿搭指南</h3>
+          <p style="font-size: 11px; color: #665F5D;">日本室內外溫差高達 25°C！點擊場景查看最舒適穿法：</p>
+          
+          <div class="layer-scene-tabs" id="layerSceneTabs">
+            <button class="layer-scene-btn active" data-scene="snow">🌨️ 室外雪地/纜車</button>
+            <button class="layer-scene-btn" data-scene="indoor">🚌 室內暖氣/巴士</button>
+            <button class="layer-scene-btn" data-scene="beach">🌊 微笑海灘/溫泉</button>
+          </div>
+
+          <div id="layerAdviceBox" style="background-color: var(--yellow-soft); border: 2px solid var(--border-ink); border-radius: 12px; padding: 10px 12px; font-size: 12px; line-height: 1.6;">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Tool 4: Essential Japanese Phrases (Expanded with Photo & Dining) -->
+        <div class="util-card">
+          <h3 style="font-size: 16px; font-weight: 900;">🗣️ 實用旅行手指日語</h3>
+          <div class="phrase-list">
+            <div class="phrase-item">
+              <div>
+                <strong>📸 可以幫我們拍照嗎？</strong>
+                <div style="font-size: 11px; color: #665F5D;">Shashin o totte moraemasu ka</div>
+              </div>
+              <span style="font-weight: 700; font-size: 11px;">写真を撮ってもらえますか？</span>
+            </div>
+            <div class="phrase-item">
+              <div>
+                <strong>🛍️ 請給我這個 / 請幫我免稅</strong>
+                <div style="font-size: 11px; color: #665F5D;">Kore o kudasai / Menzei onegaishimasu</div>
+              </div>
+              <span style="font-weight: 700; font-size: 11px;">これをお願いします／免税で</span>
+            </div>
+            <div class="phrase-item">
+              <div>
+                <strong>💴 請問多少錢？ / 可以刷卡嗎？</strong>
+                <div style="font-size: 11px; color: #665F5D;">Ikura desu ka / Ka-do OK desu ka</div>
+              </div>
+              <span style="font-weight: 700; font-size: 11px;">いくらですか？／カードOK？</span>
+            </div>
+            <div class="phrase-item">
+              <div>
+                <strong>🚻 請問洗手間在哪裡？</strong>
+                <div style="font-size: 11px; color: #665F5D;">Toire wa doko desu ka (托伊壘 哇 豆口)</div>
+              </div>
+              <span style="font-weight: 700; font-size: 11px;">トイレはどこですか？</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Tool 5: Must-Buy Hokkaido Souvenir Guide -->
+      <div class="ink-box" style="margin-top: 16px; padding: 16px; background-color: var(--white);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <div>
+            <h3 style="font-size: 16px; font-weight: 900;">🎁 北海道 6 大必買伴手禮圖鑑</h3>
+            <p style="font-size: 12px; color: #665F5D;">點擊「＋待辦」即可直接加入上方的行前與採購清單！</p>
+          </div>
+        </div>
+
+        <div class="souvenir-grid">
+          <div class="souvenir-item">
+            <div>
+              <strong style="font-size: 13px;">🍪 六花亭 蘭姆葡萄奶油夾心餅</strong>
+              <div style="font-size: 11px; color: #555;">北海道人氣王！香醇奶油配蘭姆酒漬葡萄（約 ¥780/5入，千歲AEON/機場皆有）</div>
+            </div>
+            <button class="calc-pill add-souvenir-btn" data-item="買伴手禮：六花亭蘭姆葡萄夾心餅" style="flex-shrink: 0; background-color: var(--wakatake-green);">＋待辦</button>
+          </div>
+
+          <div class="souvenir-item">
+            <div>
+              <strong style="font-size: 13px;">🍘 北菓樓 開拓米果 ＆ 夢不思議泡芙</strong>
+              <div style="font-size: 11px; color: #555;">甜蝦/帆立貝/昆布海鮮米果超涮嘴，機場必吃大泡芙（米果約 ¥490/袋）</div>
+            </div>
+            <button class="calc-pill add-souvenir-btn" data-item="買伴手禮：北菓樓開拓米果＆吃泡芙" style="flex-shrink: 0; background-color: var(--wakatake-green);">＋待辦</button>
+          </div>
+
+          <div class="souvenir-item">
+            <div>
+              <strong style="font-size: 13px;">🍫 ROYCE 生巧克力（歐蕾/香檳）</strong>
+              <div style="font-size: 11px; color: #555;">入口即化絲滑口感，建議最後在機場免稅店加購保冷袋買上機（約 ¥850/盒）</div>
+            </div>
+            <button class="calc-pill add-souvenir-btn" data-item="買伴手禮：ROYCE生巧克力(機場免稅店)" style="flex-shrink: 0; background-color: var(--wakatake-green);">＋待辦</button>
+          </div>
+
+          <div class="souvenir-item">
+            <div>
+              <strong style="font-size: 13px;">🧀 LeTAO 雙層起司蛋糕</strong>
+              <div style="font-size: 11px; color: #555;">小樽傳奇甜點！濃郁烘焙起司＋馬斯卡彭慕斯（約 ¥2,000，新千歲機場可買）</div>
+            </div>
+            <button class="calc-pill add-souvenir-btn" data-item="買伴手禮：LeTAO雙層起司蛋糕" style="flex-shrink: 0; background-color: var(--wakatake-green);">＋待辦</button>
+          </div>
+
+          <div class="souvenir-item">
+            <div>
+              <strong style="font-size: 13px;">🍟 Calbee 薯條三兄弟 ＆ 薯塊三姊妹</strong>
+              <div style="font-size: 11px; color: #555;">100%北海道馬鈴薯帶皮酥炸，佐鄂霍次克海鹽（約 ¥1,100/10袋，免稅店必搶）</div>
+            </div>
+            <button class="calc-pill add-souvenir-btn" data-item="買伴手禮：薯條三兄弟＆薯塊三姊妹" style="flex-shrink: 0; background-color: var(--wakatake-green);">＋待辦</button>
+          </div>
+
+          <div class="souvenir-item">
+            <div>
+              <strong style="font-size: 13px;">❄️ 石屋製菓 白色戀人 ＆ 札幌農學校</strong>
+              <div style="font-size: 11px; color: #555;">經典白巧克力貓舌餅與香濃北海道牛奶餅乾，分送同事首選（約 ¥1,000起）</div>
+            </div>
+            <button class="calc-pill add-souvenir-btn" data-item="買伴手禮：白色戀人＆札幌農學校餅乾" style="flex-shrink: 0; background-color: var(--wakatake-green);">＋待辦</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Emergency & Travel Reminders Box (No personal data) -->
+      <div class="ink-box" style="margin-top: 14px; padding: 16px; background-color: var(--white);">
+        <h3 style="font-size: 15px; font-weight: 900; margin-bottom: 8px;">🆘 旅日緊急聯絡電話與重要須知</h3>
+        
+        <div style="display: grid; grid-template-columns: 1fr; gap: 8px; font-size: 12px;">
+          <div>🚨 <strong>日本當地緊急報案：</strong>警察局撥打 110 ｜ 火警與救護車撥打 119</div>
+          <div>🌐 <strong>日本觀光局（JNTO）24小時中文旅遊熱線：</strong>050-3816-2787（醫療口譯與急難諮詢）</div>
+          <div>🏢 <strong>台北駐日經濟文化代表處札幌分處：</strong>011-222-2930（緊急值班手機：080-1460-2568）</div>
+          <div>🛡️ <strong>海外旅遊責任險服務專線：</strong>0800-212-880（外交部旅外國人急難救助：+886-800-085-095）</div>
+          <div>💰 <strong>隨團服務小費說明：</strong>領隊、導遊、司機服務小費每位旅客每日 NT$300 × 5天 ＝ 共 NT$1,500。</div>
+          <div>🛍️ <strong>日本免稅退稅規定：</strong>短暫停留外籍人士，同一商店當日單筆消費未稅滿 ¥5,000 即可退稅 10%（消耗品請勿於日本境內拆封）。</div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer">
+    <!-- Tiny Snowman SVG -->
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" class="anim-sway">
+      <circle cx="20" cy="27" r="11" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2.5"/>
+      <circle cx="20" cy="13" r="8" fill="#FFFFFF" stroke="#3E3A39" stroke-width="2.5"/>
+      <circle cx="17" cy="12" r="1.5" fill="#3E3A39"/>
+      <circle cx="23" cy="12" r="1.5" fill="#3E3A39"/>
+      <polygon points="19,14 25,15 19,16" fill="#F2A497"/>
+      <circle cx="20" cy="24" r="1.5" fill="#3E3A39"/>
+      <circle cx="20" cy="28" r="1.5" fill="#3E3A39"/>
+      <!-- Scarf -->
+      <path d="M 14 19 Q 20 22 26 19" stroke="#F6D27A" stroke-width="3" fill="none"/>
+    </svg>
+    <div>❄️ 北海道星享事成 5日雪國之旅 隨身手冊 ❄️</div>
+    <div style="font-size: 11px;">祝 旅途平安快樂・美好雪國回憶滿載！</div>
+    <a href="#hero" class="ink-btn" style="background-color: var(--white); font-size: 11px; padding: 4px 14px; margin-top: 6px;">
+      ⬆️ 返回頁首
+    </a>
+  </footer>
+
+  <!-- ==================== JAVASCRIPT ==================== -->
+  <script>
+    (function() {
+      // 1. Departure Countdown
+      // Target: 2026/12/06 09:20:00 (Taiwan Time UTC+8)
+      var targetTime = new Date('2026-12-06T09:20:00+08:00').getTime();
+
+      function updateCountdown() {
+        var now = new Date().getTime();
+        var diff = targetTime - now;
+
+        var daysEl = document.getElementById('countDays');
+        var hoursEl = document.getElementById('countHours');
+        var minsEl = document.getElementById('countMins');
+        var secsEl = document.getElementById('countSecs');
+        var statusEl = document.getElementById('countdownStatus');
+
+        if (diff <= 0) {
+          if (daysEl) daysEl.innerText = '0';
+          if (hoursEl) hoursEl.innerText = '0';
+          if (minsEl) minsEl.innerText = '0';
+          if (secsEl) secsEl.innerText = '0';
+          if (statusEl) statusEl.innerText = '🎉 旅途愉快！美好回憶滿載！';
+          return;
+        }
+
+        var d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        var h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        var s = Math.floor((diff % (1000 * 60)) / 1000);
+
+        if (daysEl) daysEl.innerText = d;
+        if (hoursEl) hoursEl.innerText = h < 10 ? '0' + h : h;
+        if (minsEl) minsEl.innerText = m < 10 ? '0' + m : m;
+        if (secsEl) secsEl.innerText = s < 10 ? '0' + s : s;
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+
+      // 2. Date Switcher Tabs
+      var tabButtons = document.querySelectorAll('.date-tab-btn');
+      var dayPanes = document.querySelectorAll('.day-itinerary-pane');
+
+      tabButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var targetId = btn.getAttribute('data-target');
+
+          // Remove active from all tabs
+          tabButtons.forEach(function(b) {
+            b.classList.remove('active');
+          });
+          btn.classList.add('active');
+
+          // Switch panes with bounce animation
+          dayPanes.forEach(function(pane) {
+            pane.classList.remove('active');
+            pane.classList.remove('anim-bounce-in');
+          });
+
+          var targetPane = document.getElementById(targetId);
+          if (targetPane) {
+            targetPane.classList.add('active');
+            // Trigger reflow for animation restart
+            void targetPane.offsetWidth;
+            targetPane.classList.add('anim-bounce-in');
+          }
+        });
+      });
+
+      // 2b. Photo Guide Filter Tabs
+      var photoFilterBtns = document.querySelectorAll('.photo-filter-btn');
+      var photoCards = document.querySelectorAll('.photo-card');
+
+      photoFilterBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var cat = btn.getAttribute('data-pcat');
+          photoFilterBtns.forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+
+          photoCards.forEach(function(card) {
+            if (cat === 'all' || card.getAttribute('data-pcat') === cat) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+
+      // 3. Motion Reducer Toggle
+      var motionBtn = document.getElementById('motionToggleBtn');
+      var motionIcon = document.getElementById('motionIcon');
+      var motionText = document.getElementById('motionText');
+
+      var isReduced = false;
+      try {
+        isReduced = localStorage.getItem('hokkaido_reduced_motion') === 'true';
+      } catch (e) {}
+
+      function applyMotionState(reduced) {
+        if (reduced) {
+          document.body.classList.add('reduced-motion');
+          if (motionIcon) motionIcon.innerText = '🛑';
+          if (motionText) motionText.innerText = '靜止';
+        } else {
+          document.body.classList.remove('reduced-motion');
+          if (motionIcon) motionIcon.innerText = '✨';
+          if (motionText) motionText.innerText = '動態';
+        }
+      }
+
+      applyMotionState(isReduced);
+
+      if (motionBtn) {
+        motionBtn.addEventListener('click', function() {
+          isReduced = !isReduced;
+          applyMotionState(isReduced);
+          try {
+            localStorage.setItem('hokkaido_reduced_motion', isReduced);
+          } catch (e) {}
+        });
+      }
+
+      // 4. Checklist System
+      var initialTasks = [
+        { id: 't1', text: '護照正本（效期需在出發日起6個月以上）', cat: 'doc' },
+        { id: 't2', text: '填寫並截圖 Visit Japan Web 入境審查 QR Code', cat: 'doc' },
+        { id: 't3', text: '星宇航空電子機票憑證與海外旅遊保險單', cat: 'doc' },
+        { id: 't4', text: '日幣現金（含領隊小費 NT$1,500/人 或等值日圓）', cat: 'doc' },
+        { id: 't5', text: '海外刷卡高回饋信用卡 1~2 張（開通海外交易）', cat: 'doc' },
+        { id: 't6', text: '防風防水連帽保暖羽絨外套（雪地核心必備）', cat: 'warm' },
+        { id: 't7', text: '發熱保暖衣物與長褲多套（採洋蔥式穿戴法）', cat: 'warm' },
+        { id: 't8', text: '防滑防水高筒雪靴（或搭配贈送防滑鞋套）', cat: 'warm' },
+        { id: 't9', text: '羊毛防寒帽、亮色保暖圍巾、防水保暖手套（拍照亮點）', cat: 'warm' },
+        { id: 't10', text: '隨身暖暖包若干包（放口袋與手機背面防凍斷電）', cat: 'warm' },
+        { id: 't11', text: '個人泳衣與泳帽（TOMAMU微笑海灘必備，現場不提供租借泳衣）', cat: 'warm' },
+        { id: 't12', text: '行動電源（嚴禁托運！必須放置隨身包手提上機）', cat: 'elec' },
+        { id: 't13', text: '手機充電線、相機電池與充電頭', cat: 'elec' },
+        { id: 't14', text: '更換 SIM 卡取卡針與 SIM 卡收納袋', cat: 'elec' },
+        { id: 't15', text: '個人常備藥（腸胃藥、感冒止痛藥、暈車藥）', cat: 'med' },
+        { id: 't16', text: '高保濕面霜、馬油護手霜與滋潤護唇膏（防日本乾冷凍傷）', cat: 'med' },
+        { id: 't17', text: '人工淚液或眼藥水、隨身小包濕紙巾、OK繃', cat: 'med' },
+        { id: 't18', text: '領取參團好禮：日本上網 SIM 卡（每日 2GB 高速4G）', cat: 'perk' },
+        { id: 't19', text: '領取參團好禮：雪地防滑鞋套（每人一雙）', cat: 'perk' },
+        { id: 't20', text: '領取參團好禮：飯店商品抵用券 ¥2,000 /人', cat: 'perk' },
+        { id: 't21', text: '領取參團好禮：慕尼黑聖誕市集代金 ¥2,000 /人', cat: 'perk' },
+        { id: 't22', text: 'TOMAMU 霧冰纜車：搭乘前一天 17:00 上官網個人預約', cat: 'perk' }
+      ];
+
+      var tasks = [];
+      try {
+        var savedTasks = localStorage.getItem('hokkaido_tasks_v1');
+        if (savedTasks) {
+          tasks = JSON.parse(savedTasks);
+        } else {
+          tasks = initialTasks.map(function(item) {
+            return { id: item.id, text: item.text, cat: item.cat, checked: false };
+          });
+        }
+      } catch (e) {
+        tasks = initialTasks.map(function(item) {
+          return { id: item.id, text: item.text, cat: item.cat, checked: false };
+        });
+      }
+
+      var currentFilter = 'all';
+      var checklistContainer = document.getElementById('checklistContainer');
+      var progressText = document.getElementById('progressText');
+      var progressBarFill = document.getElementById('progressBarFill');
+
+      function saveTasks() {
+        try {
+          localStorage.setItem('hokkaido_tasks_v1', JSON.stringify(tasks));
+        } catch (e) {}
+      }
+
+      function updateProgress() {
+        var total = tasks.length;
+        var checkedCount = tasks.filter(function(t) { return t.checked; }).length;
+        var pct = total === 0 ? 0 : Math.round((checkedCount / total) * 100);
+
+        if (progressText) {
+          progressText.innerText = checkedCount + ' / ' + total + ' 項 (' + pct + '%)';
+        }
+        if (progressBarFill) {
+          progressBarFill.style.width = pct + '%';
+        }
+      }
+
+      function renderTasks() {
+        if (!checklistContainer) return;
+        checklistContainer.innerHTML = '';
+
+        var filtered = tasks.filter(function(t) {
+          if (currentFilter === 'all') return true;
+          return t.cat === currentFilter;
+        });
+
+        if (filtered.length === 0) {
+          checklistContainer.innerHTML = '<div style="text-align: center; color: #888; padding: 20px;">此分類暫無待辦項目～</div>';
+          updateProgress();
+          return;
+        }
+
+        filtered.forEach(function(task) {
+          var row = document.createElement('div');
+          row.className = 'checklist-row' + (task.checked ? ' checked' : '');
+
+          var chk = document.createElement('div');
+          chk.className = 'checkbox-box';
+          chk.innerText = task.checked ? '✓' : '';
+
+          var text = document.createElement('span');
+          text.style.flex = '1';
+          text.style.fontSize = '13px';
+          text.innerText = task.text;
+
+          row.appendChild(chk);
+          row.appendChild(text);
+
+          row.addEventListener('click', function() {
+            task.checked = !task.checked;
+            saveTasks();
+            renderTasks();
+          });
+
+          checklistContainer.appendChild(row);
+        });
+
+        updateProgress();
+      }
+
+      // Filter button handlers
+      var filterButtons = document.querySelectorAll('.filter-btn');
+      filterButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          filterButtons.forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          currentFilter = btn.getAttribute('data-cat');
+          renderTasks();
+        });
+      });
+
+      // Add task form
+      var addTaskForm = document.getElementById('addTaskForm');
+      var taskInput = document.getElementById('taskInput');
+      if (addTaskForm && taskInput) {
+        addTaskForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          var val = taskInput.value.trim();
+          if (!val) return;
+
+          tasks.push({
+            id: 'custom_' + Date.now(),
+            text: val,
+            cat: currentFilter === 'all' ? 'perk' : currentFilter,
+            checked: false
+          });
+
+          taskInput.value = '';
+          saveTasks();
+          renderTasks();
+        });
+      }
+
+      // Souvenir quick-add buttons
+      var addSouvenirBtns = document.querySelectorAll('.add-souvenir-btn');
+      addSouvenirBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var itemText = btn.getAttribute('data-item');
+          var exists = tasks.some(function(t) { return t.text === itemText; });
+          if (!exists) {
+            tasks.push({
+              id: 'souv_' + Date.now() + '_' + Math.floor(Math.random() * 100),
+              text: itemText,
+              cat: 'perk',
+              checked: false
+            });
+            saveTasks();
+            renderTasks();
+          }
+          btn.innerText = '✓ 已加入';
+          btn.style.backgroundColor = 'var(--yamabuki-yellow)';
+        });
+      });
+
+      // Reset Checklist Button
+      var resetBtn = document.getElementById('resetChecklistBtn');
+      if (resetBtn) {
+        resetBtn.addEventListener('click', function() {
+          tasks = initialTasks.map(function(item) {
+            return { id: item.id, text: item.text, cat: item.cat, checked: false };
+          });
+          saveTasks();
+          renderTasks();
+        });
+      }
+
+      renderTasks();
+
+      // 5. Currency Converter
+      var jpyInput = document.getElementById('jpyInput');
+      var twdResult = document.getElementById('twdResult');
+      var twdTaxFreeResult = document.getElementById('twdTaxFreeResult');
+      var rate = 0.215;
+
+      function calcCurrency() {
+        if (!jpyInput || !twdResult) return;
+        var val = parseFloat(jpyInput.value) || 0;
+        var twd = Math.round(val * rate);
+        var twdTaxFree = Math.round(val * 0.9 * rate);
+        twdResult.innerText = twd.toLocaleString();
+        if (twdTaxFreeResult) {
+          twdTaxFreeResult.innerText = twdTaxFree.toLocaleString();
+        }
+      }
+
+      if (jpyInput) {
+        jpyInput.addEventListener('input', calcCurrency);
+      }
+
+      var quickPills = document.querySelectorAll('.calc-pill[data-val]');
+      quickPills.forEach(function(p) {
+        p.addEventListener('click', function() {
+          var v = p.getAttribute('data-val');
+          if (jpyInput) {
+            jpyInput.value = v;
+            calcCurrency();
+          }
+        });
+      });
+
+      // 6. Tax-Free & Expense Tracker
+      var expenses = [];
+      try {
+        var savedExp = localStorage.getItem('hokkaido_expenses_v1');
+        if (savedExp) {
+          expenses = JSON.parse(savedExp);
+        } else {
+          expenses = [
+            { id: 'e1', name: '範例：六花亭奶油夾心餅', price: 1560 }
+          ];
+        }
+      } catch (e) {
+        expenses = [];
+      }
+
+      var expenseListContainer = document.getElementById('expenseListContainer');
+      var expenseTotalJpy = document.getElementById('expenseTotalJpy');
+      var expenseTotalTwd = document.getElementById('expenseTotalTwd');
+      var taxFreeBadge = document.getElementById('taxFreeBadge');
+      var taxFreeBarFill = document.getElementById('taxFreeBarFill');
+      var addExpenseForm = document.getElementById('addExpenseForm');
+      var expNameInput = document.getElementById('expNameInput');
+      var expPriceInput = document.getElementById('expPriceInput');
+      var clearExpenseBtn = document.getElementById('clearExpenseBtn');
+
+      function saveExpenses() {
+        try {
+          localStorage.setItem('hokkaido_expenses_v1', JSON.stringify(expenses));
+        } catch (e) {}
+      }
+
+      function renderExpenses() {
+        if (!expenseListContainer) return;
+        expenseListContainer.innerHTML = '';
+
+        var totalJpy = 0;
+        expenses.forEach(function(item) {
+          totalJpy += item.price;
+
+          var row = document.createElement('div');
+          row.className = 'expense-row';
+
+          var left = document.createElement('span');
+          left.innerText = item.name;
+
+          var right = document.createElement('div');
+          right.style.display = 'flex';
+          right.style.alignItems = 'center';
+          right.style.gap = '8px';
+
+          var priceTag = document.createElement('strong');
+          priceTag.innerText = '¥' + item.price.toLocaleString();
+
+          var delBtn = document.createElement('button');
+          delBtn.className = 'expense-del-btn';
+          delBtn.innerText = '✕';
+          delBtn.addEventListener('click', function() {
+            expenses = expenses.filter(function(x) { return x.id !== item.id; });
+            saveExpenses();
+            renderExpenses();
+          });
+
+          right.appendChild(priceTag);
+          right.appendChild(delBtn);
+          row.appendChild(left);
+          row.appendChild(right);
+          expenseListContainer.appendChild(row);
+        });
+
+        if (expenses.length === 0) {
+          expenseListContainer.innerHTML = '<div style="text-align: center; color: #888; font-size: 11px; padding: 10px;">輸入購物金額，即時計算是否達 ¥5,000 免稅門檻！</div>';
+        }
+
+        if (expenseTotalJpy) expenseTotalJpy.innerText = '¥' + totalJpy.toLocaleString();
+        if (expenseTotalTwd) expenseTotalTwd.innerText = 'NT$' + Math.round(totalJpy * rate).toLocaleString();
+
+        var pct = Math.min(100, Math.round((totalJpy / 5000) * 100));
+        if (taxFreeBarFill) {
+          taxFreeBarFill.style.width = pct + '%';
+          taxFreeBarFill.style.backgroundColor = totalJpy >= 5000 ? 'var(--wakatake-green)' : 'var(--yamabuki-yellow)';
+        }
+
+        if (taxFreeBadge) {
+          if (totalJpy >= 5000) {
+            var savedTax = Math.round(totalJpy * 0.1);
+            taxFreeBadge.style.color = '#2B7A3E';
+            taxFreeBadge.innerText = '🎉 已達免稅！約省 ¥' + savedTax.toLocaleString();
+          } else {
+            var remain = 5000 - totalJpy;
+            taxFreeBadge.style.color = '#D94432';
+            taxFreeBadge.innerText = '差 ¥' + remain.toLocaleString() + ' 享免稅';
+          }
+        }
+      }
+
+      if (addExpenseForm) {
+        addExpenseForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          var nameVal = expNameInput.value.trim();
+          var priceVal = parseInt(expPriceInput.value, 10) || 0;
+          if (!nameVal || priceVal <= 0) return;
+
+          expenses.push({
+            id: 'exp_' + Date.now(),
+            name: nameVal,
+            price: priceVal
+          });
+          expNameInput.value = '';
+          expPriceInput.value = '';
+          saveExpenses();
+          renderExpenses();
+        });
+      }
+
+      if (clearExpenseBtn) {
+        clearExpenseBtn.addEventListener('click', function() {
+          expenses = [];
+          saveExpenses();
+          renderExpenses();
+        });
+      }
+
+      renderExpenses();
+
+      // 7. Interactive Winter Layering Guide
+      var layerData = {
+        snow: '<div>🧣 <strong>頭手配件：</strong>保暖毛帽（遮耳）＋ 亮色圍巾 ＋ 防水觸控手套（拍雪景必備）</div>' +
+              '<div>🧥 <strong>外層防風：</strong>防風防水連帽長版羽絨外套（口袋放暖暖包）</div>' +
+              '<div>🧶 <strong>中層鎖溫：</strong>刷毛大學T、針織毛衣或輕羽絨背心</div>' +
+              '<div>👕 <strong>內層排汗：</strong>吸濕發熱衣 ＋ 刷毛發熱褲/防風長褲</div>' +
+              '<div>🥾 <strong>鞋履建議：</strong>防水高筒雪靴 ＋ 羊毛厚襪（結冰路面套上贈送的<strong>防滑鞋套</strong>）</div>',
+        indoor: '<div>💡 <strong>核心重點：</strong>日本巴士、百貨、飯店暖氣極強（約 22°C~25°C），穿太厚無法脫會流汗悶熱！</div>' +
+                '<div>🧥 <strong>一進室內：</strong>立即脫下厚羽絨外套、毛帽、手套與圍巾（可準備一個輕便摺疊袋裝配件）</div>' +
+                '<div>👕 <strong>建議內搭：</strong>發熱衣外搭配一件「好穿脫的開襟針織衫或薄長袖」，切勿穿高領厚重毛衣在最裡面！</div>',
+        beach: '<div>🌊 <strong>微笑海灘 (恆溫 30°C)：</strong>室內宛如熱帶島嶼！請穿著<strong>個人泳衣、泳帽</strong>，外罩一件輕便T恤或連帽外套從房間走過去。</div>' +
+               '<div>♨️ <strong>木林之湯 / 綠之風溫泉：</strong>房間內換穿飯店提供的「日式浴衣 (Yukata)」，左上右下穿法，毛巾直接去浴場櫃檯免費領取即可！</div>'
+      };
+
+      var layerSceneBtns = document.querySelectorAll('.layer-scene-btn');
+      var layerAdviceBox = document.getElementById('layerAdviceBox');
+
+      function updateLayerScene(sceneKey) {
+        if (!layerAdviceBox) return;
+        layerAdviceBox.innerHTML = layerData[sceneKey] || layerData.snow;
+      }
+
+      updateLayerScene('snow');
+
+      layerSceneBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          layerSceneBtns.forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          updateLayerScene(btn.getAttribute('data-scene'));
+        });
+      });
+
+      // 8. Smooth scroll highlight for navigation
+      var navPills = document.querySelectorAll('.nav-pill');
+      navPills.forEach(function(pill) {
+        pill.addEventListener('click', function() {
+          navPills.forEach(function(p) { p.classList.remove('active'); });
+          pill.classList.add('active');
+        });
+      });
+
+    
+      // Register Service Worker for GitHub Pages Offline Support
+      if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('./sw.js').catch(function() {});
+        });
+      }
+
+    })();
+  </script>
+</body>
+</html>
