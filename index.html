@@ -3104,7 +3104,7 @@
 
 
   <!-- Save Notification Toast -->
-  <div id="saveToast" class="save-toast">💾 已自動儲存修改！</div>
+  <div id="saveToast" class="save-toast">✅ 已儲存！</div>
 
   <!-- Embedded State Snapshot (Used when exporting standalone saved HTML file) -->
   <script id="embeddedStateScript">
@@ -3265,7 +3265,7 @@
       function showSaveToast(msg) {
         var t = document.getElementById('saveToast');
         if (!t) return;
-        t.innerText = msg || '💾 已自動儲存修改！';
+        t.innerText = msg || '✅ 已儲存！';
         t.classList.add('show');
         if (toastTimer) clearTimeout(toastTimer);
         toastTimer = setTimeout(function() {
