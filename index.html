@@ -1296,6 +1296,96 @@
       align-items: center;
       gap: 10px;
     }
+
+    /* Edit Mode & Save Status Styles */
+    body.is-editing [data-editable="true"] {
+      outline: 2px dashed var(--coral-pink);
+      background-color: #FFFDF4;
+      border-radius: 6px;
+      padding: 2px 4px;
+      cursor: text;
+      transition: background-color 0.15s ease;
+    }
+
+    body.is-editing [data-editable="true"]:focus {
+      outline: 3px solid var(--coral-pink);
+      background-color: var(--white);
+    }
+
+    .edit-banner {
+      display: none;
+      background-color: var(--yamabuki-yellow);
+      border-bottom: 3px solid var(--border-ink);
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 900;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    body.is-editing .edit-banner {
+      display: flex;
+    }
+
+    .save-toast {
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background-color: var(--border-ink);
+      color: var(--white);
+      border: 3px solid var(--white);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      border-radius: 999px;
+      padding: 8px 18px;
+      font-size: 13px;
+      font-weight: 900;
+      z-index: 999;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .save-toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .task-del-btn {
+      background-color: var(--coral-soft);
+      border: 2px solid var(--border-ink);
+      border-radius: 8px;
+      width: 24px;
+      height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 900;
+      color: var(--border-ink);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .task-del-btn:hover {
+      background-color: var(--coral-pink);
+    }
+
+    /* Storage Backup Card */
+    .backup-card {
+      border: 3px solid var(--border-ink);
+      border-radius: 22px;
+      background-color: var(--coral-soft);
+      box-shadow: 4px 4px 0px var(--border-ink);
+      padding: 16px;
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
   </style>
 </head>
 <body>
@@ -1320,6 +1410,14 @@
         </a>
 
         <div class="nav-actions">
+          <!-- Edit Mode Toggle Button -->
+          <button id="editModeBtn" class="ink-btn" style="padding: 4px 10px; font-size: 12px; background-color: var(--coral-soft);" title="點擊直接修改行程與文字">
+            <span id="editModeIcon">✏️</span> <span id="editModeText">修改內容</span>
+          </button>
+          <!-- Export Saved HTML Button -->
+          <button id="exportHtmlTopBtn" class="ink-btn" style="padding: 4px 10px; font-size: 12px; background-color: var(--green-soft);" title="把修改結果打包存成新檔案">
+            💾 存檔下載
+          </button>
           <!-- Motion Toggle Button -->
           <button id="motionToggleBtn" class="ink-btn" style="padding: 4px 10px; font-size: 12px; background-color: var(--white);" title="切換動態效果">
             <span id="motionIcon">✨</span> <span id="motionText">動態</span>
@@ -1336,7 +1434,13 @@
         <a href="#hotels" class="nav-pill">🏨 住宿精選</a>
         <a href="#checklist" class="nav-pill">✅ 待辦行李</a>
         <a href="#utilities" class="nav-pill">🧰 實用工具</a>
+        <a href="#data-backup" class="nav-pill">💾 儲存與備份</a>
       </nav>
+    </div>
+    <div class="edit-banner" id="editBanner">
+      <span>✏️ 目前為「內容編輯模式」：直接點選畫面上的文字即可修改，改完會自動儲存！</span>
+      <button id="finishEditBtn" class="calc-pill" style="background-color: var(--wakatake-green);">✓ 完成修改</button>
+      <button id="resetTextEditsBtn" class="calc-pill" style="background-color: var(--white);">🔄 還原預設文字</button>
     </div>
   </header>
 
@@ -2972,6 +3076,45 @@
         </div>
       </div>
 
+
+      <!-- Tool 6: Mobile Save & Offline File Export (Solves file:// & WebView reset) -->
+      <div id="data-backup" class="backup-card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; flex-wrap: wrap;">
+          <div>
+            <h3 style="font-size: 16px; font-weight: 900;">💾 手機修改儲存 ＆ 永久備份中心</h3>
+            <p id="storageEnvStatus" style="font-size: 12px; color: #4A4442; margin-top: 2px;">
+              正在檢測手機儲存環境...
+            </p>
+          </div>
+          <span class="badge-must" style="background-color: var(--wakatake-green);">支援全站文字修改</span>
+        </div>
+
+        <div style="background-color: var(--white); border: 2px solid var(--border-ink); border-radius: 12px; padding: 10px 12px; font-size: 12px; line-height: 1.6;">
+          <div>💡 <strong>為什麼在手機上直接點開檔案會無法存檔？</strong></div>
+          <div>1. 若從 <strong>LINE 聊天室</strong>或 <strong>iPhone「檔案 App」</strong>直接點開 <code>.html</code> 檔，手機系統會以「唯讀預覽沙盒」開啟，關閉視窗時系統會強制清空暫存紀錄。</div>
+          <div>2. <strong>解決方法 A（最推薦）：</strong>部署至 <strong>GitHub Pages 網址</strong>後，用 Safari / Chrome 打開並「加入主畫面」，修改與打勾就會 100% 自動永久儲存在手機裡！</div>
+          <div>3. <strong>解決方法 B（免網路/本地檔案專用）：</strong>修改完行程文字或打勾後，點擊下方<strong>「📥 下載已保存進度的網頁檔 (.html)」</strong>，系統會把您改過的文字與勾選紀錄直接寫進新的 HTML 檔案中，永久不會消失！</div>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+          <button id="exportHtmlBtn" class="ink-btn" style="background-color: var(--wakatake-green); font-size: 13px; flex: 1; min-width: 200px;">
+            📥 下載已保存進度的網頁檔 (.html)
+          </button>
+          <button id="copyBackupBtn" class="ink-btn" style="background-color: var(--yamabuki-yellow); font-size: 13px;">
+            📋 複製進度備份碼
+          </button>
+          <button id="restoreBackupBtn" class="ink-btn" style="background-color: var(--white); font-size: 13px;">
+            📤 貼上還原進度
+          </button>
+        </div>
+
+        <!-- Hidden/Collapsible Restore Input -->
+        <div id="restoreBoxWrap" style="display: none; gap: 6px; margin-top: 4px;">
+          <input type="text" id="restoreInput" class="task-input" placeholder="在此貼上備份碼...">
+          <button id="confirmRestoreBtn" class="ink-btn" style="background-color: var(--mizuiro-blue); font-size: 12px; white-space: nowrap;">確認還原</button>
+        </div>
+      </div>
+
       <!-- Emergency & Travel Reminders Box (No personal data) -->
       <div class="ink-box" style="margin-top: 14px; padding: 16px; background-color: var(--white);">
         <h3 style="font-size: 15px; font-weight: 900; margin-bottom: 8px;">🆘 旅日緊急聯絡電話與重要須知</h3>
@@ -3010,6 +3153,15 @@
       ⬆️ 返回頁首
     </a>
   </footer>
+
+
+  <!-- Save Notification Toast -->
+  <div id="saveToast" class="save-toast">💾 已自動儲存修改！</div>
+
+  <!-- Embedded State Snapshot (Used when exporting standalone saved HTML file) -->
+  <script id="embeddedStateScript">
+    window.__EMBEDDED_STATE__ = null;
+  </script>
 
   <!-- ==================== JAVASCRIPT ==================== -->
   <script>
@@ -3161,20 +3313,38 @@
         { id: 't22', text: 'TOMAMU 霧冰纜車：搭乘前一天 17:00 上官網個人預約', cat: 'perk' }
       ];
 
+      var toastTimer = null;
+      function showSaveToast(msg) {
+        var t = document.getElementById('saveToast');
+        if (!t) return;
+        t.innerText = msg || '💾 已自動儲存修改！';
+        t.classList.add('show');
+        if (toastTimer) clearTimeout(toastTimer);
+        toastTimer = setTimeout(function() {
+          t.classList.remove('show');
+        }, 2000);
+      }
+
       var tasks = [];
       try {
         var savedTasks = localStorage.getItem('hokkaido_tasks_v1');
         if (savedTasks) {
           tasks = JSON.parse(savedTasks);
+        } else if (window.__EMBEDDED_STATE__ && window.__EMBEDDED_STATE__.tasks) {
+          tasks = window.__EMBEDDED_STATE__.tasks;
         } else {
           tasks = initialTasks.map(function(item) {
             return { id: item.id, text: item.text, cat: item.cat, checked: false };
           });
         }
       } catch (e) {
-        tasks = initialTasks.map(function(item) {
-          return { id: item.id, text: item.text, cat: item.cat, checked: false };
-        });
+        if (window.__EMBEDDED_STATE__ && window.__EMBEDDED_STATE__.tasks) {
+          tasks = window.__EMBEDDED_STATE__.tasks;
+        } else {
+          tasks = initialTasks.map(function(item) {
+            return { id: item.id, text: item.text, cat: item.cat, checked: false };
+          });
+        }
       }
 
       var currentFilter = 'all';
@@ -3229,13 +3399,28 @@
           text.style.fontSize = '13px';
           text.innerText = task.text;
 
+          var delBtn = document.createElement('button');
+          delBtn.type = 'button';
+          delBtn.className = 'task-del-btn';
+          delBtn.title = '刪除此項';
+          delBtn.innerText = '✕';
+          delBtn.addEventListener('click', function(ev) {
+            ev.stopPropagation();
+            tasks = tasks.filter(function(x) { return x.id !== task.id; });
+            saveTasks();
+            renderTasks();
+            showSaveToast('🗑️ 已刪除待辦項目');
+          });
+
           row.appendChild(chk);
           row.appendChild(text);
+          row.appendChild(delBtn);
 
           row.addEventListener('click', function() {
             task.checked = !task.checked;
             saveTasks();
             renderTasks();
+            showSaveToast(task.checked ? '✅ 已勾選並儲存！' : '💾 已更新待辦狀態');
           });
 
           checklistContainer.appendChild(row);
@@ -3350,13 +3535,19 @@
         var savedExp = localStorage.getItem('hokkaido_expenses_v1');
         if (savedExp) {
           expenses = JSON.parse(savedExp);
+        } else if (window.__EMBEDDED_STATE__ && window.__EMBEDDED_STATE__.expenses) {
+          expenses = window.__EMBEDDED_STATE__.expenses;
         } else {
           expenses = [
             { id: 'e1', name: '範例：六花亭奶油夾心餅', price: 1560 }
           ];
         }
       } catch (e) {
-        expenses = [];
+        if (window.__EMBEDDED_STATE__ && window.__EMBEDDED_STATE__.expenses) {
+          expenses = window.__EMBEDDED_STATE__.expenses;
+        } else {
+          expenses = [];
+        }
       }
 
       var expenseListContainer = document.getElementById('expenseListContainer');
@@ -3509,7 +3700,284 @@
         });
       });
 
-    
+
+      // 9. Full-Page Direct Content Editing & Persistence (localStorage + IndexedDB + HTML File Export)
+      var editableSelectors = [
+        '.hero-main-title',
+        '.hero-sub-title',
+        '.info-pill strong',
+        '.perk-text h4',
+        '.perk-text p',
+        '.airport-time',
+        '.flight-details-box div',
+        '.day-banner-title',
+        '.day-banner-box p',
+        '.meal-chip',
+        '.time-badge',
+        '.timeline-card-title',
+        '.timeline-card-desc',
+        '.timeline-tip-box div',
+        '.play-guide-box div',
+        '.hotel-name',
+        '.hotel-sub',
+        '.hotel-feat'
+      ].join(', ');
+
+      var editableNodes = document.querySelectorAll(editableSelectors);
+      var customEdits = {};
+
+      try {
+        var savedEdits = localStorage.getItem('hokkaido_custom_edits_v1');
+        if (savedEdits) {
+          customEdits = JSON.parse(savedEdits);
+        } else if (window.__EMBEDDED_STATE__ && window.__EMBEDDED_STATE__.customEdits) {
+          customEdits = window.__EMBEDDED_STATE__.customEdits;
+        }
+      } catch (e) {
+        if (window.__EMBEDDED_STATE__ && window.__EMBEDDED_STATE__.customEdits) {
+          customEdits = window.__EMBEDDED_STATE__.customEdits;
+        }
+      }
+
+      editableNodes.forEach(function(node, idx) {
+        var key = 'edit_' + idx;
+        node.setAttribute('data-editable', 'true');
+        node.setAttribute('data-edit-key', key);
+        node.setAttribute('data-default-html', node.innerHTML);
+
+        if (customEdits[key] !== undefined) {
+          node.innerHTML = customEdits[key];
+        }
+
+        node.addEventListener('blur', function() {
+          if (!document.body.classList.contains('is-editing')) return;
+          var newHtml = node.innerHTML;
+          if (newHtml !== node.getAttribute('data-default-html')) {
+            customEdits[key] = newHtml;
+          } else {
+            delete customEdits[key];
+          }
+          saveCustomEdits();
+          showSaveToast('💾 文字修改已自動儲存！');
+        });
+      });
+
+      function saveCustomEdits() {
+        try {
+          localStorage.setItem('hokkaido_custom_edits_v1', JSON.stringify(customEdits));
+        } catch (e) {}
+        saveToIndexedDB();
+      }
+
+      // IndexedDB Mirror Backup (for iOS Safari durability)
+      function saveToIndexedDB() {
+        if (!window.indexedDB) return;
+        try {
+          var req = window.indexedDB.open('HokkaidoTripDB', 1);
+          req.onupgradeneeded = function(ev) {
+            var db = ev.target.result;
+            if (!db.objectStoreNames.contains('state')) {
+              db.createObjectStore('state');
+            }
+          };
+          req.onsuccess = function(ev) {
+            var db = ev.target.result;
+            var tx = db.transaction('state', 'readwrite');
+            tx.objectStore('state').put({
+              tasks: tasks,
+              expenses: expenses,
+              customEdits: customEdits,
+              updatedAt: Date.now()
+            }, 'snapshot');
+          };
+        } catch (e) {}
+      }
+
+      // Toggle Edit Mode
+      var editModeBtn = document.getElementById('editModeBtn');
+      var editModeIcon = document.getElementById('editModeIcon');
+      var editModeText = document.getElementById('editModeText');
+      var finishEditBtn = document.getElementById('finishEditBtn');
+      var resetTextEditsBtn = document.getElementById('resetTextEditsBtn');
+      var isEditing = false;
+
+      function setEditMode(state) {
+        isEditing = state;
+        if (isEditing) {
+          document.body.classList.add('is-editing');
+          editableNodes.forEach(function(n) { n.setAttribute('contenteditable', 'true'); });
+          if (editModeIcon) editModeIcon.innerText = '💾';
+          if (editModeText) editModeText.innerText = '完成修改';
+          if (editModeBtn) editModeBtn.style.backgroundColor = 'var(--wakatake-green)';
+          showSaveToast('✏️ 已開啟編輯模式：點選任何文字即可修改！');
+        } else {
+          document.body.classList.remove('is-editing');
+          editableNodes.forEach(function(n) { n.removeAttribute('contenteditable'); });
+          if (editModeIcon) editModeIcon.innerText = '✏️';
+          if (editModeText) editModeText.innerText = '修改內容';
+          if (editModeBtn) editModeBtn.style.backgroundColor = 'var(--coral-soft)';
+          saveCustomEdits();
+          saveTasks();
+          saveExpenses();
+          showSaveToast('✅ 所有修改已儲存！');
+        }
+      }
+
+      if (editModeBtn) {
+        editModeBtn.addEventListener('click', function() {
+          setEditMode(!isEditing);
+        });
+      }
+
+      if (finishEditBtn) {
+        finishEditBtn.addEventListener('click', function() {
+          setEditMode(false);
+        });
+      }
+
+      if (resetTextEditsBtn) {
+        resetTextEditsBtn.addEventListener('click', function() {
+          customEdits = {};
+          editableNodes.forEach(function(n) {
+            n.innerHTML = n.getAttribute('data-default-html');
+          });
+          saveCustomEdits();
+          showSaveToast('🔄 已還原為預設行程文字');
+        });
+      }
+
+      // Check Storage Environment & Display Helpful Status
+      var storageEnvStatus = document.getElementById('storageEnvStatus');
+      if (storageEnvStatus) {
+        var canLocal = false;
+        try {
+          localStorage.setItem('__test_storage__', '1');
+          localStorage.removeItem('__test_storage__');
+          canLocal = true;
+        } catch (e) {}
+
+        var isFileProto = window.location.protocol === 'file:' || window.location.protocol === 'content:';
+        if (isFileProto) {
+          storageEnvStatus.innerHTML = '⚠️ 偵測到您目前以<strong>「手機本地檔案預覽」</strong>開啟：關閉視窗時手機可能會清除暫存，修改後請點下方<strong>「📥 下載已保存進度的網頁檔」</strong>或改用 <strong>GitHub Pages 網址</strong>開啟！';
+        } else if (canLocal) {
+          storageEnvStatus.innerHTML = '✅ 偵測到您的瀏覽器<strong>支援自動儲存</strong>！打勾、記帳或點擊頂部「✏️ 修改內容」改字都會自動保存在此裝置中。';
+        } else {
+          storageEnvStatus.innerHTML = '⚠️ 偵測到目前為無痕模式或受限瀏覽器，請使用下方「📥 下載網頁檔」保存修改。';
+        }
+      }
+
+      // Export Standalone HTML File with all current state baked in
+      function exportSavedHtmlFile() {
+        if (isEditing) {
+          setEditMode(false);
+        }
+        var snapshot = {
+          tasks: tasks,
+          expenses: expenses,
+          customEdits: customEdits,
+          savedAt: new Date().toISOString()
+        };
+
+        var embeddedScript = document.getElementById('embeddedStateScript');
+        if (embeddedScript) {
+          embeddedScript.textContent = '\n    window.__EMBEDDED_STATE__ = ' + JSON.stringify(snapshot) + ';\n  ';
+        }
+
+        var fullHtml = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+        var blob = new Blob([fullHtml], { type: 'text/html;charset=utf-8' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'index.html';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(function() { URL.revokeObjectURL(url); }, 1500);
+        showSaveToast('📥 已下載包含所有修改的最新 index.html！');
+      }
+
+      var exportHtmlBtn = document.getElementById('exportHtmlBtn');
+      var exportHtmlTopBtn = document.getElementById('exportHtmlTopBtn');
+      if (exportHtmlBtn) exportHtmlBtn.addEventListener('click', exportSavedHtmlFile);
+      if (exportHtmlTopBtn) exportHtmlTopBtn.addEventListener('click', exportSavedHtmlFile);
+
+      // Copy & Restore Backup Code
+      var copyBackupBtn = document.getElementById('copyBackupBtn');
+      var restoreBackupBtn = document.getElementById('restoreBackupBtn');
+      var restoreBoxWrap = document.getElementById('restoreBoxWrap');
+      var restoreInput = document.getElementById('restoreInput');
+      var confirmRestoreBtn = document.getElementById('confirmRestoreBtn');
+
+      if (copyBackupBtn) {
+        copyBackupBtn.addEventListener('click', function() {
+          var payload = JSON.stringify({
+            tasks: tasks,
+            expenses: expenses,
+            customEdits: customEdits
+          });
+          var encoded = btoa(encodeURIComponent(payload));
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(encoded).then(function() {
+              showSaveToast('📋 已複製備份碼！可貼到記事本或傳給旅伴');
+            }).catch(function() {
+              fallbackCopy(encoded);
+            });
+          } else {
+            fallbackCopy(encoded);
+          }
+        });
+      }
+
+      function fallbackCopy(text) {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta);
+        showSaveToast('📋 已複製備份碼！');
+      }
+
+      if (restoreBackupBtn && restoreBoxWrap) {
+        restoreBackupBtn.addEventListener('click', function() {
+          restoreBoxWrap.style.display = restoreBoxWrap.style.display === 'none' ? 'flex' : 'none';
+        });
+      }
+
+      if (confirmRestoreBtn && restoreInput) {
+        confirmRestoreBtn.addEventListener('click', function() {
+          var code = restoreInput.value.trim();
+          if (!code) return;
+          try {
+            var decoded = JSON.parse(decodeURIComponent(atob(code)));
+            if (Array.isArray(decoded.tasks)) tasks = decoded.tasks;
+            if (Array.isArray(decoded.expenses)) expenses = decoded.expenses;
+            if (decoded.customEdits) {
+              customEdits = decoded.customEdits;
+              editableNodes.forEach(function(n) {
+                var k = n.getAttribute('data-edit-key');
+                if (customEdits[k] !== undefined) {
+                  n.innerHTML = customEdits[k];
+                } else {
+                  n.innerHTML = n.getAttribute('data-default-html');
+                }
+              });
+            }
+            saveTasks();
+            saveExpenses();
+            saveCustomEdits();
+            renderTasks();
+            renderExpenses();
+            restoreInput.value = '';
+            restoreBoxWrap.style.display = 'none';
+            showSaveToast('🎉 已成功還原所有進度與文字修改！');
+          } catch (e) {
+            showSaveToast('⚠️ 備份碼格式不正確，請重新複製貼上');
+          }
+        });
+      }
+
+
       // Register Service Worker for GitHub Pages Offline Support
       if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
         window.addEventListener('load', function() {
